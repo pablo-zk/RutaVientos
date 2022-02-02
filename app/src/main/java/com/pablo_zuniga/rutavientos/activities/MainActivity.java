@@ -1,8 +1,10 @@
-package com.pablo_zuniga.rutavientos;
+package com.pablo_zuniga.rutavientos.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.pablo_zuniga.rutavientos.R;
 
 public class MainActivity extends AppCompatActivity {
 
