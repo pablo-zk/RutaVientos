@@ -1,5 +1,8 @@
 package com.pablo_zuniga.rutavientos.models;
 
+import com.pablo_zuniga.rutavientos.app.MyApplication;
+
+import java.util.Calendar;
 import java.util.Date;
 
 import io.realm.RealmObject;
@@ -18,7 +21,8 @@ public class Route extends RealmObject{
 
     public Route(){}
 
-    public Route(String destino, String origen, int plazasLibres, Date horaSalida, String conductor) {
+    public Route(String origen, String destino, int plazasLibres, Date horaSalida, String conductor) {
+        this.id = MyApplication.routeId.incrementAndGet();
         this.destino = destino;
         this.origen = origen;
         this.plazasLibres = plazasLibres;
