@@ -3,6 +3,7 @@ package com.pablo_zuniga.rutavientos.app;
 import android.app.Application;
 
 import com.pablo_zuniga.rutavientos.models.Route;
+import com.pablo_zuniga.rutavientos.models.User;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -13,6 +14,7 @@ import io.realm.RealmResults;
 
 public class MyApplication extends Application {
     public static AtomicInteger routeId = new AtomicInteger();
+    public static AtomicInteger userId = new AtomicInteger();
 
     @Override
     public void onCreate() {
@@ -20,6 +22,7 @@ public class MyApplication extends Application {
         setUpRealmConfig();
         Realm realm = Realm.getDefaultInstance();
         routeId = getIdByTable(realm, Route.class);
+        userId = getIdByTable(realm, User.class);
         realm.close();
     }
 
