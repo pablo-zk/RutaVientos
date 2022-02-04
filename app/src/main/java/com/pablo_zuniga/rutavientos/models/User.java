@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import io.realm.Realm;
+import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -20,11 +21,11 @@ public class User extends RealmObject {
     private int telefono;
     private int fotoPerfil;
     private int puntuacion;
-    private List<Integer> routesId;
+    private RealmList<Integer> routesId;
 
     public User(){}
 
-    public User(int id, String username, String password, String nombre, String apellido, int telefono, int fotoPerfil, int puntuacion, List<Integer> routesId) {
+    public User(int id, String username, String password, String nombre, String apellido, int telefono, int fotoPerfil, int puntuacion, RealmList<Integer> routesId) {
         this.id = MyApplication.userId.incrementAndGet();
         this.username = username;
         this.password = password;
@@ -96,11 +97,11 @@ public class User extends RealmObject {
         this.puntuacion = puntuacion;
     }
 
-    public List<Integer> getRoutesId() {
+    public RealmList<Integer> getRoutesId() {
         return routesId;
     }
 
-    public void setRoutesId(List<Integer> routesId) {
+    public void setRoutesId(RealmList<Integer> routesId) {
         this.routesId = routesId;
     }
 }
