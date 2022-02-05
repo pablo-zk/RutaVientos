@@ -3,6 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Programming/AndroidStudio/RutaVientos/app/src/main/res/layout/activity_login.xml" value="0.490036231884058" />
+        <entry key="..\:/Programming/AndroidStudio/RutaVientos/app/src/main/res/layout/activity_main.xml" value="0.490036231884058" />
+        <entry key="..\:/Programming/AndroidStudio/RutaVientos/app/src/main/res/layout/fragment_login.xml" value="0.4466666666666667" />
+        <entry key="..\:/Programming/AndroidStudio/RutaVientos/app/src/main/res/layout/fragment_routes.xml" value="0.490036231884058" />
+        <entry key="..\:/Programming/AndroidStudio/RutaVientos/app/src/main/res/layout/fragment_signup.xml" value="0.490036231884058" />
         <entry key="..\:/Users/pablo/Desktop/2DAM/Movil/Proyecto/app/src/main/res/layout/activity_main.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/pablo/Desktop/2DAM/Movil/Proyecto/app/src/main/res/layout/fragment_login.xml" value="0.21041666666666667" />
       </map>

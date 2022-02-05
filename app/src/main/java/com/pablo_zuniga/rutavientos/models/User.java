@@ -25,7 +25,7 @@ public class User extends RealmObject {
 
     public User(){}
 
-    public User(int id, String username, String password, String nombre, String apellido, int telefono, int fotoPerfil, int puntuacion, RealmList<Integer> routesId) {
+    public User(String username, String password, String nombre, String apellido, int telefono, int fotoPerfil, int puntuacion, RealmList<Integer> routesId) {
         this.id = MyApplication.userId.incrementAndGet();
         this.username = username;
         this.password = password;
