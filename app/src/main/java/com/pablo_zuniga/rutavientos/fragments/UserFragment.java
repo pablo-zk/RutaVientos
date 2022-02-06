@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import com.pablo_zuniga.rutavientos.R;
 
-public class UserFragment extends Fragment {
+public class  UserFragment extends Fragment {
 
 
     public UserFragment() {

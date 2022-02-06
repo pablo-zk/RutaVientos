@@ -1,22 +1,101 @@
 package com.pablo_zuniga.rutavientos.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
 import com.pablo_zuniga.rutavientos.R;
+import com.pablo_zuniga.rutavientos.models.User;
+
+import java.util.ArrayList;
+
+import io.realm.Realm;
+import io.realm.RealmList;
 
 public class SignupFragment extends Fragment {
 
-    public SignupFragment() {}
+    private DataListener callback;
+    ArrayList<User> users;
+    User user;
+    private EditText username;
+    private EditText passwd;
+    private EditText name;
+    private EditText lasname;
+    private EditText phone;
+    RealmList<Integer> listaRutas;
+    float v=0;
+    private Button btnLog;
 
+    private Realm realm;
+
+    public SignupFragment() {}
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+        try {
+            callback = (DataListener) context;
+        }catch (Exception e){
+            throw new ClassCastException(context.toString() + "should implement DataListener");
+        }
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_signup, container, false);
+
+        View view = inflater.inflate(R.layout.fragment_signup, container, false);
+
+        this.username = (EditText) view.findViewById(R.id.username);
+        this.passwd = (EditText) view.findViewById(R.id.passwd);
+        this.name = (EditText) view.findViewById(R.id.name);
+        this.lasname = (EditText) view.findViewById(R.id.lastname);
+        this.phone = (EditText) view.findViewById(R.id.phone);
+        this.btnLog = (Button) view.findViewById(R.id.btnLog);
+
+
+
+        username.setTranslationX(800);
+        passwd.setTranslationX(800);
+
+        username.setAlpha(v);
+        passwd.setAlpha(v);
+
+        btnLog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (name.getTranslationX() == 0){
+                    name.animate().translationX(-1800).alpha(0).setDuration(900).setStartDelay(200).start();
+                    lasname.animate().translationX(-1800).alpha(0).setDuration(900).setStartDelay(250).start();
+                    phone.animate().translationX(-1800).alpha(0).setDuration(900).setStartDelay(300).start();
+
+                    username.animate().translationX(0).alpha(1).setDuration(700).setStartDelay(350).start();
+                    passwd.animate().translationX(0).alpha(1).setDuration(700).setStartDelay(400).start();
+                } else {
+                    listaRutas = new RealmList<Integer>();
+                    realm = Realm.getDefaultInstance();
+                    user = new User();
+                    user.setUsername(username.getText().toString());
+                    user.setPassword(passwd.getText().toString());
+                    users.add(user);
+                    realm.beginTransaction();
+                    realm.copyToRealm(users);
+                    realm.commitTransaction();
+                }
+
+            }
+        });
+
+        return view;
+    }
+    public interface DataListener {
+        public void sendData(User User);
     }
 }

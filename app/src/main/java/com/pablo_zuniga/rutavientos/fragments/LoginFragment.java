@@ -28,6 +28,7 @@ public class LoginFragment extends Fragment {
     private Button btnLog;
     private TextView prueba;
     private Realm realm;
+    float v=0;
     RealmResults<User> realUsers;
     public LoginFragment() {}
 
@@ -47,9 +48,21 @@ public class LoginFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_login, container, false);
-        this.user = (EditText) view.findViewById(R.id.etUser);
-        this.passwd = (EditText) view.findViewById(R.id.etPasswd);
-        this.btnLog = (Button) view.findViewById(R.id.btnLogin);
+        this.user = (EditText) view.findViewById(R.id.username);
+        this.passwd = (EditText) view.findViewById(R.id.passwd);
+        this.btnLog = (Button) view.findViewById(R.id.btnLog);
+
+        user.setTranslationX(800);
+        passwd.setTranslationX(800);
+        btnLog.setTranslationX(800);
+
+        user.setAlpha(v);
+        passwd.setAlpha(v);
+        btnLog.setAlpha(v);
+
+        user.animate().translationX(0).alpha(1).setDuration(900).setStartDelay(450).start();
+        passwd.animate().translationX(0).alpha(1).setDuration(900).setStartDelay(550).start();
+        btnLog.animate().translationX(0).alpha(1).setDuration(900).setStartDelay(650).start();
 
         btnLog.setOnClickListener(new View.OnClickListener() {
             @Override
