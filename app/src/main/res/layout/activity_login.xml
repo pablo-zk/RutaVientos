@@ -73,6 +73,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView
+        android:id="@+id/imgLogo"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:src="@drawable/logo"

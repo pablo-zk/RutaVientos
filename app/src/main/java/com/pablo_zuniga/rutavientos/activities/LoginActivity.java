@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.RemoteCallbackList;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
@@ -35,6 +36,7 @@ public class LoginActivity extends AppCompatActivity implements LoginFragment.Da
     ViewPager viewPager;
     LoginAdapter loginAdapter;
     FloatingActionButton google;
+    ImageView imgLogo;
     float v=0;
 
 
@@ -46,6 +48,7 @@ public class LoginActivity extends AppCompatActivity implements LoginFragment.Da
         tabLayout = findViewById(R.id.tab_layout);
         viewPager = findViewById(R.id.view_pager);
         google = findViewById(R.id.fab_google);
+        imgLogo = findViewById(R.id.imgLogo);
         tabLayout.addTab(tabLayout.newTab().setText("Login"));
         tabLayout.addTab(tabLayout.newTab().setText("Signup"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
@@ -75,28 +78,30 @@ public class LoginActivity extends AppCompatActivity implements LoginFragment.Da
 
         google.setTranslationY(300);
         tabLayout.setTranslationX(800);
+        imgLogo.setTranslationY(-300);
 
         google.setAlpha(v);
         tabLayout.setAlpha(v);
+        imgLogo.setAlpha(v);
 
         google.animate().translationY(0).alpha(1).setDuration(700).setStartDelay(400).start();
         tabLayout.animate().translationX(0).alpha(1).setDuration(500).setStartDelay(300).start();
+        imgLogo.animate().translationY(0).alpha(1).setDuration(700).setStartDelay(300).start();
 
-
-        listaRutas = new RealmList<Integer>();
+        /*listaRutas = new RealmList<Integer>();
 
         realm = Realm.getDefaultInstance();
 
         users = new ArrayList<>();
-        users.add(new User("root","1234","","",1,1,0,listaRutas, false));
+        users.add(new User("root","1234","","",1,1,0,listaRutas));
         realm.beginTransaction();
         realm.deleteAll();
         realm.copyToRealm(users);
-        realm.commitTransaction();
+        realm.commitTransaction();*/
     }
 
     public void sendData(User user) {
-        Intent intent = new Intent(this,MainActivity.class);
+        Intent intent = new Intent(this,MainActivity.class); finish();
         intent.putExtra("username",user.getUsername());
         intent.putExtra("passwd",user.getPassword());
         intent.putExtra("nombre",user.getNombre());
@@ -105,7 +110,6 @@ public class LoginActivity extends AppCompatActivity implements LoginFragment.Da
         intent.putExtra("fotoPerfil",user.getFotoPerfil());
         intent.putExtra("puntuacion",user.getPuntuacion());
         intent.putExtra("routesId",user.getFotoPerfil());
-        intent.putExtra("isActive",user.getisActive());
         startActivity(intent);
     }
 

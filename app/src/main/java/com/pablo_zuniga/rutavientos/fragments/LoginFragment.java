@@ -21,7 +21,7 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 
 public class LoginFragment extends Fragment {
-
+    private TextView txtId;
     private DataListener callback;
     private EditText user;
     private EditText passwd;

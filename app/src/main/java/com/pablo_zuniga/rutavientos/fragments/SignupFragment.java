@@ -23,7 +23,6 @@ import io.realm.RealmList;
 public class SignupFragment extends Fragment {
 
     private DataListener callback;
-    ArrayList<User> users;
     User user;
     private EditText username;
     private EditText passwd;
@@ -60,8 +59,6 @@ public class SignupFragment extends Fragment {
         this.phone = (EditText) view.findViewById(R.id.phone);
         this.btnLog = (Button) view.findViewById(R.id.btnLog);
 
-
-
         username.setTranslationX(800);
         passwd.setTranslationX(800);
 
@@ -81,13 +78,11 @@ public class SignupFragment extends Fragment {
                 } else {
                     listaRutas = new RealmList<Integer>();
                     realm = Realm.getDefaultInstance();
-                    user = new User();
-                    user.setUsername(username.getText().toString());
-                    user.setPassword(passwd.getText().toString());
-                    users.add(user);
+                    user = new User(username.getText().toString(), passwd.getText().toString(), "", "",1,1,1,listaRutas);
                     realm.beginTransaction();
-                    realm.copyToRealm(users);
+                    realm.copyToRealm(user);
                     realm.commitTransaction();
+                    callback.sendData(user);
                 }
 
             }
