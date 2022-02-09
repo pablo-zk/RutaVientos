@@ -75,7 +75,17 @@ public class SignupFragment extends Fragment {
 
                     username.animate().translationX(0).alpha(1).setDuration(700).setStartDelay(350).start();
                     passwd.animate().translationX(0).alpha(1).setDuration(700).setStartDelay(400).start();
+                    //Añadido
+                    btnLog.setText("SIGNUP");
                 } else {
+                    if(username.getText().toString().equals("")){
+                        username.setError("Username is required");
+                        return;
+                    }else if(passwd.getText().toString().equals("")){
+                        passwd.setError("Password is required");
+                        return;
+                    }
+
                     listaRutas = new RealmList<Integer>();
                     realm = Realm.getDefaultInstance();
                     user = new User(username.getText().toString(), passwd.getText().toString(), "", "",1,1,1,listaRutas);
