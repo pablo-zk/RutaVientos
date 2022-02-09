@@ -1,11 +1,13 @@
 package com.pablo_zuniga.rutavientos.fragments;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.se.omapi.Session;
 import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,8 @@ import android.widget.TextView;
 
 import com.pablo_zuniga.rutavientos.R;
 import com.pablo_zuniga.rutavientos.models.User;
+
+import java.util.stream.StreamSupport;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -28,8 +32,10 @@ public class LoginFragment extends Fragment {
     private Button btnLog;
     private TextView prueba;
     private Realm realm;
+    private Session session;
     float v=0;
     RealmResults<User> realUsers;
+
     public LoginFragment() {}
 
     @Override
@@ -52,6 +58,7 @@ public class LoginFragment extends Fragment {
         this.passwd = (EditText) view.findViewById(R.id.passwd);
         this.btnLog = (Button) view.findViewById(R.id.btnLog);
 
+
         user.setTranslationX(800);
         passwd.setTranslationX(800);
         btnLog.setTranslationX(800);
@@ -70,6 +77,10 @@ public class LoginFragment extends Fragment {
                 realm = Realm.getDefaultInstance();
                 realUsers = realm.where(User.class).equalTo("username", user.getText().toString()).equalTo("password", passwd.getText().toString()).findAll();
                 if (realUsers.size() != 0){
+                    realUsers.get(0).setActive(true);
+                    realm.beginTransaction();
+                    realm.copyToRealmOrUpdate(realUsers.get(0));
+                    realm.commitTransaction();
                     callback.sendData(realUsers.get(0));
                 }else{
                     user.setError("Usuario incorrecto");

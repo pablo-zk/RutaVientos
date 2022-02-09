@@ -44,7 +44,16 @@ public class LoginActivity extends AppCompatActivity implements LoginFragment.Da
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
+        realm.deleteAll();
+        realUsers = realm.where(User.class).findAll();
+        for (User user : realUsers) {
+            if (user.isActive()){
+                sendData(user);
+            }
+        }
+        realm.commitTransaction();
         tabLayout = findViewById(R.id.tab_layout);
         viewPager = findViewById(R.id.view_pager);
         google = findViewById(R.id.fab_google);
@@ -88,16 +97,7 @@ public class LoginActivity extends AppCompatActivity implements LoginFragment.Da
         tabLayout.animate().translationX(0).alpha(1).setDuration(500).setStartDelay(300).start();
         imgLogo.animate().translationY(0).alpha(1).setDuration(700).setStartDelay(300).start();
 
-        /*listaRutas = new RealmList<Integer>();
 
-        realm = Realm.getDefaultInstance();
-
-        users = new ArrayList<>();
-        users.add(new User("root","1234","","",1,1,0,listaRutas));
-        realm.beginTransaction();
-        realm.deleteAll();
-        realm.copyToRealm(users);
-        realm.commitTransaction();*/
     }
 
     public void sendData(User user) {

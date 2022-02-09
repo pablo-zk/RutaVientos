@@ -88,7 +88,7 @@ public class SignupFragment extends Fragment {
 
                     listaRutas = new RealmList<Integer>();
                     realm = Realm.getDefaultInstance();
-                    user = new User(username.getText().toString(), passwd.getText().toString(), "", "",1,1,1,listaRutas);
+                    user = new User(username.getText().toString(), passwd.getText().toString(), "", "",1,1,1,listaRutas, true);
                     realm.beginTransaction();
                     realm.copyToRealm(user);
                     realm.commitTransaction();

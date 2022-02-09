@@ -22,10 +22,12 @@ public class User extends RealmObject {
     private int fotoPerfil;
     private int puntuacion;
     private RealmList<Integer> routesId;
+    private boolean isActive;
 
     public User(){}
 
-    public User(String username, String password, String nombre, String apellido, int telefono, int fotoPerfil, int puntuacion, RealmList<Integer> routesId) {
+
+    public User(String username, String password, String nombre, String apellido, int telefono, int fotoPerfil, int puntuacion, RealmList<Integer> routesId, boolean isActive) {
         this.id = MyApplication.userId.incrementAndGet();
         this.username = username;
         this.password = password;
@@ -35,8 +37,8 @@ public class User extends RealmObject {
         this.fotoPerfil = fotoPerfil;
         this.puntuacion = puntuacion;
         this.routesId = routesId;
+        this.isActive = isActive;
     }
-
 
     public int getId() {
         return id;
@@ -106,4 +108,11 @@ public class User extends RealmObject {
         this.routesId = routesId;
     }
 
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
 }
