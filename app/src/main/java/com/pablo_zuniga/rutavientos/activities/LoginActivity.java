@@ -95,7 +95,7 @@ public class LoginActivity extends AppCompatActivity implements LoginFragment.Da
 
         google.animate().translationY(0).alpha(1).setDuration(700).setStartDelay(400).start();
         tabLayout.animate().translationX(0).alpha(1).setDuration(500).setStartDelay(300).start();
-        imgLogo.animate().translationY(0).alpha(1).setDuration(700).setStartDelay(300).start();
+        imgLogo.animate().translationY(0).alpha(1).setDuration(700).setStartDelay(500).start();
 
 
     }
