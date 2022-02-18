@@ -62,15 +62,16 @@
                 android:textSize="20sp"/>
 
             <TextView
+                android:id="@+id/cardDriver"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Publicado por Pablo"
-                android:gravity="center"
-                app:layout_constraintTop_toBottomOf="@id/cardHour"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 android:layout_margin="10dp"
-                android:textSize="17sp"/>
+                android:gravity="center"
+                android:text="Publicado por Pablo"
+                android:textSize="17sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cardHour" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
