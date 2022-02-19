@@ -39,15 +39,13 @@ public class MainActivity extends AppCompatActivity implements RoutesFragment.Da
         realm = Realm.getDefaultInstance();
 
         routes = new ArrayList<>();
-        //Busca calendar par la fecha de salida
-        routes.add(new Route("Cuatro Vientos", "La morea", 3, new Date(2022, 2, 11, 10, 30),"Pablo" ));
-        routes.add(new Route("Estella", "Cuatro Vientos", 2, new Date(2022, 2, 17, 6, 30),"Asier" ));
-        routes.add(new Route("Cuatro Vientos", "Itaroa", 4, new Date(2022, 2, 11, 19, 30),"Gorka" ));
+        routes.add(new Route("Cuatrovientos", "La morea", 3, new Date(2022, 2, 11, 10, 30),"Pablo" ));
+        routes.add(new Route("Estella", "Cuatrovientos", 2, new Date(2022, 2, 17, 6, 30),"Asier" ));
+        routes.add(new Route("Cuatrovientos", "Itaroa", 4, new Date(2022, 2, 11, 19, 30),"Gorka" ));
         //realm.deleteAll();
         realm.beginTransaction();
         realm.copyToRealm(routes);
         realm.commitTransaction();
-
 
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         tabLayout.addTab(tabLayout.newTab().setText("ROUTES"));
@@ -75,7 +73,13 @@ public class MainActivity extends AppCompatActivity implements RoutesFragment.Da
     }
 
     public void sendData(Route route) {
-        Intent intent = new Intent(this,MainActivity.class); finish();//Intent a DetailRouteActivity
+        Intent intent = new Intent(this, RouteDetails.class);
+        intent.putExtra("origin", route.getOrigin());
+        intent.putExtra("destiny", route.getDestiny());
+
+        startActivity(intent);
+
+        //Intent intent = new Intent(this,MainActivity.class); finish();//Intent a DetailRouteActivity
 //        intent.putExtra("username",user.getUsername());
 //        intent.putExtra("passwd",user.getPassword());
 //        intent.putExtra("nombre",user.getNombre());
@@ -84,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements RoutesFragment.Da
 //        intent.putExtra("fotoPerfil",user.getFotoPerfil());
 //        intent.putExtra("puntuacion",user.getPuntuacion());
 //        intent.putExtra("routesId",user.getFotoPerfil());
-        startActivity(intent);
+        //startActivity(intent);
     }
 
 }

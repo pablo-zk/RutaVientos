@@ -1,6 +1,7 @@
 package com.pablo_zuniga.rutavientos.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,6 +16,8 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.pablo_zuniga.rutavientos.R;
+import com.pablo_zuniga.rutavientos.activities.MainActivity;
+import com.pablo_zuniga.rutavientos.activities.RouteDetails;
 import com.pablo_zuniga.rutavientos.adapters.RoutesAdapter;
 import com.pablo_zuniga.rutavientos.models.Route;
 import com.pablo_zuniga.rutavientos.models.User;
@@ -50,21 +53,17 @@ public class RoutesFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_routes, container, false);
 
-        Toast.makeText(view.getContext(),"Este es el fragment Routes",Toast.LENGTH_SHORT).show();
+        Toast.makeText(view.getContext(),"Este es el fragment Routes", Toast.LENGTH_SHORT).show();
         this.recyclerRoutes = (RecyclerView) view.findViewById(R.id.recyclerRoutes);
 
         realm = Realm.getDefaultInstance();
         realmResults = realm.where(Route.class).findAll();
 
         this.recyclerRoutes.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false));
-        RoutesAdapter routesAdapter = new RoutesAdapter(realmResults, new RoutesAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(Route ruta, int position) {
-                //¿sendData? - enviar la informacion de la ruta a una vista detalles para apuntarse.
-            }
+        RoutesAdapter routesAdapter = new RoutesAdapter(realmResults, (ruta, position) -> {
+            //¿sendData? - enviar la informacion de la ruta a una vista detalles para apuntarse.
         });
         this.recyclerRoutes.setAdapter(routesAdapter);
-
         return view;
     }
 
