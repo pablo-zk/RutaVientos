@@ -55,10 +55,10 @@ public class RoutesAdapter extends RecyclerView.Adapter<RoutesAdapter.RoutesData
             conductor = (TextView) itemView.findViewById(R.id.cardDriver);
         }
         public void assignData(Route ruta, OnItemClickListener itemListener){
-            this.origenDestino.setText(ruta.getDestino() + " - " + ruta.getOrigen());
-            this.hora.setText(ruta.getHoraSalida().getHours() + ":" + ruta.getHoraSalida().getMinutes());
-            this.plazas.setText(ruta.getPlazasLibres());
-            this.conductor.setText("Publicado por " + ruta.getConductor());
+            this.origenDestino.setText("Origen - Destino");
+            this.hora.setText("hora");
+            this.plazas.setText("plazas");
+            this.conductor.setText("Publicado por ");
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:cardElevation="10dp"
-        app:cardCornerRadius="20dp"
         android:layout_margin="10dp"
         app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="10dp"
         app:cardMaxElevation="12dp"
         app:cardPreventCornerOverlap="true"
-        app:cardUseCompatPadding="true">
+        app:cardUseCompatPadding="true"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -25,41 +25,41 @@
                 android:id="@+id/cardTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Partida - Destino"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="5dp"
+                android:text="Partida - Destino"
                 android:textSize="20sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/cardHour"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:text="18:30"
-                app:layout_constraintTop_toBottomOf="@id/cardTitle"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/cardPlaces"
                 android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="20dp"
                 android:gravity="center"
+                android:text="18:30"
                 android:textSize="40sp"
                 android:textStyle="bold"
-                android:layout_marginTop="10dp"/>
+                app:layout_constraintEnd_toStartOf="@id/cardPlaces"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cardTitle" />
 
             <TextView
                 android:id="@+id/cardPlaces"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:text="4 plazas"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
                 android:gravity="center"
-                app:layout_constraintTop_toBottomOf="@id/cardTitle"
+                android:text="4 plazas"
+                android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/cardHour"
-                android:layout_marginEnd="20dp"
-                android:layout_marginTop="10dp"
-                android:textSize="20sp"/>
+                app:layout_constraintTop_toBottomOf="@id/cardTitle" />
 
             <TextView
                 android:id="@+id/cardDriver"

@@ -10,7 +10,10 @@ import android.util.Log;
 import com.google.android.material.tabs.TabLayout;
 import com.pablo_zuniga.rutavientos.R;
 import com.pablo_zuniga.rutavientos.adapters.MyPagerAdapter;
+import com.pablo_zuniga.rutavientos.fragments.LoginFragment;
+import com.pablo_zuniga.rutavientos.fragments.RoutesFragment;
 import com.pablo_zuniga.rutavientos.models.Route;
+import com.pablo_zuniga.rutavientos.models.User;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,13 +21,15 @@ import java.util.Date;
 import io.realm.Realm;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements RoutesFragment.DataListener {
     ArrayList<Route> routes;
     Realm realm;
 
     TabLayout tabLayout;
     ViewPager viewPager;
     MyPagerAdapter pagerAdapter;
+
+    User userGlobal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +57,8 @@ public class MainActivity extends AppCompatActivity {
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         pagerAdapter = new MyPagerAdapter(getSupportFragmentManager(),tabLayout.getTabCount());
         viewPager.setAdapter(pagerAdapter);
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -69,5 +74,17 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    public void sendData(Route route) {
+        Intent intent = new Intent(this,MainActivity.class); finish();//Intent a DetailRouteActivity
+//        intent.putExtra("username",user.getUsername());
+//        intent.putExtra("passwd",user.getPassword());
+//        intent.putExtra("nombre",user.getNombre());
+//        intent.putExtra("apellido",user.getApellido());
+//        intent.putExtra("telefono",user.getTelefono());
+//        intent.putExtra("fotoPerfil",user.getFotoPerfil());
+//        intent.putExtra("puntuacion",user.getPuntuacion());
+//        intent.putExtra("routesId",user.getFotoPerfil());
+        startActivity(intent);
+    }
 
 }

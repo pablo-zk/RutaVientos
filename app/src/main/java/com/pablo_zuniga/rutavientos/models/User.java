@@ -2,6 +2,8 @@ package com.pablo_zuniga.rutavientos.models;
 
 import com.pablo_zuniga.rutavientos.app.MyApplication;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -21,6 +23,7 @@ public class User extends RealmObject {
     private int telefono;
     private int fotoPerfil;
     private int puntuacion;
+    private String fechaCreacion;
     private RealmList<Integer> routesId;
     private boolean isActive;
 
@@ -36,6 +39,11 @@ public class User extends RealmObject {
         this.telefono = telefono;
         this.fotoPerfil = fotoPerfil;
         this.puntuacion = puntuacion;
+
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        this.fechaCreacion = sdf.format(c.getTime());
+
         this.routesId = routesId;
         this.isActive = isActive;
     }
@@ -47,7 +55,6 @@ public class User extends RealmObject {
     public String getUsername() {
         return username;
     }
-
     public void setUsername(String username) {
         this.username = username;
     }
@@ -55,7 +62,6 @@ public class User extends RealmObject {
     public String getPassword() {
         return password;
     }
-
     public void setPassword(String password) {
         this.password = password;
     }
@@ -63,7 +69,6 @@ public class User extends RealmObject {
     public String getNombre() {
         return nombre;
     }
-
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
@@ -71,7 +76,6 @@ public class User extends RealmObject {
     public String getApellido() {
         return apellido;
     }
-
     public void setApellido(String apellido) {
         this.apellido = apellido;
     }
@@ -79,7 +83,6 @@ public class User extends RealmObject {
     public int getTelefono() {
         return telefono;
     }
-
     public void setTelefono(int telefono) {
         this.telefono = telefono;
     }
@@ -87,7 +90,6 @@ public class User extends RealmObject {
     public int getFotoPerfil() {
         return fotoPerfil;
     }
-
     public void setFotoPerfil(int fotoPerfil) {
         this.fotoPerfil = fotoPerfil;
     }
@@ -95,15 +97,17 @@ public class User extends RealmObject {
     public int getPuntuacion() {
         return puntuacion;
     }
-
     public void setPuntuacion(int puntuacion) {
         this.puntuacion = puntuacion;
+    }
+
+    public String getFechaCreacion() {
+        return fechaCreacion;
     }
 
     public RealmList<Integer> getRoutesId() {
         return routesId;
     }
-
     public void setRoutesId(RealmList<Integer> routesId) {
         this.routesId = routesId;
     }
@@ -111,7 +115,6 @@ public class User extends RealmObject {
     public boolean isActive() {
         return isActive;
     }
-
     public void setActive(boolean active) {
         isActive = active;
     }
