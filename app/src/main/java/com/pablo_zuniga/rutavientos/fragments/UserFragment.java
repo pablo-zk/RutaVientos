@@ -27,6 +27,7 @@ public class  UserFragment extends Fragment {
 
     Realm realm;
     RealmResults<User> realmUser;
+    DataListener callback;
     TextView txtNombreCompleto;
     TextView txtFechaCreacion;
     ImageView imgPerfil;
@@ -91,9 +92,14 @@ public class  UserFragment extends Fragment {
             @Override
             public void onItemClick(Route ruta, int position) {
                 //¿sendData? - enviar la informacion de la ruta a una vista detalles para apuntarse.
+                callback.sendData(ruta);
             }
         });
         recyclerRutas.setAdapter(routesAdapter);
         return view;
+    }
+
+    public interface DataListener {
+        public void sendData(Route route);
     }
 }
