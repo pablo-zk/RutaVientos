@@ -6,12 +6,14 @@ import androidx.viewpager.widget.ViewPager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
 import com.pablo_zuniga.rutavientos.R;
 import com.pablo_zuniga.rutavientos.adapters.MyPagerAdapter;
 import com.pablo_zuniga.rutavientos.fragments.LoginFragment;
 import com.pablo_zuniga.rutavientos.fragments.RoutesFragment;
+import com.pablo_zuniga.rutavientos.fragments.UserFragment;
 import com.pablo_zuniga.rutavientos.models.Route;
 import com.pablo_zuniga.rutavientos.models.User;
 
@@ -19,9 +21,10 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import io.realm.Realm;
+import io.realm.RealmList;
 
 
-public class MainActivity extends AppCompatActivity implements RoutesFragment.DataListener {
+public class MainActivity extends AppCompatActivity implements RoutesFragment.DataListener, UserFragment.DataListener {
     ArrayList<Route> routes;
     Realm realm;
 
@@ -38,14 +41,24 @@ public class MainActivity extends AppCompatActivity implements RoutesFragment.Da
         //Intent intent = new Intent(this, LoginActivity.class); startActivity(intent); finish();
         realm = Realm.getDefaultInstance();
 
+        ArrayList<User> users = new ArrayList<>();
+        users.add(new User("p","1234","Pablo","Zuniga",999666333,0,0,new RealmList<Integer>(),false));
+        users.add(new User("a","1234","Asier","Elorza",111222333,0,0,new RealmList<Integer>(),false));
+        users.add(new User("g","1234","Gorka","Erdozain",444555666,0,0,new RealmList<Integer>(),false));
+        realm.beginTransaction();
+        realm.copyToRealm(users);
+        realm.commitTransaction();
+
         routes = new ArrayList<>();
-        routes.add(new Route("Cuatrovientos", "La morea", 3, new Date(2022, 2, 11, 10, 30),"Pablo" ));
-        routes.add(new Route("Estella", "Cuatrovientos", 2, new Date(2022, 2, 17, 6, 30),"Asier" ));
-        routes.add(new Route("Cuatrovientos", "Itaroa", 4, new Date(2022, 2, 11, 19, 30),"Gorka" ));
+        routes.add(new Route("Cuatrovientos", "La morea", 3, new Date(2022, 2, 11, 10, 30),users.get(0).getId() ));
+        routes.add(new Route("Estella", "Cuatrovientos", 2, new Date(2022, 2, 17, 6, 30),users.get(1).getId() ));
+        routes.add(new Route("Cuatrovientos", "Itaroa", 4, new Date(2022, 2, 11, 19, 30),users.get(2).getId() ));
         //realm.deleteAll();
         realm.beginTransaction();
         realm.copyToRealm(routes);
         realm.commitTransaction();
+
+
 
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         tabLayout.addTab(tabLayout.newTab().setText("ROUTES"));
@@ -74,21 +87,10 @@ public class MainActivity extends AppCompatActivity implements RoutesFragment.Da
 
     public void sendData(Route route) {
         Intent intent = new Intent(this, RouteDetails.class);
-        intent.putExtra("origin", route.getOrigin());
-        intent.putExtra("destiny", route.getDestiny());
-
+        //intent.putExtra("origin", route.getOrigin());
+        //intent.putExtra("destiny", route.getDestiny());
+        intent.putExtra("id", route.getId());
         startActivity(intent);
-
-        //Intent intent = new Intent(this,MainActivity.class); finish();//Intent a DetailRouteActivity
-//        intent.putExtra("username",user.getUsername());
-//        intent.putExtra("passwd",user.getPassword());
-//        intent.putExtra("nombre",user.getNombre());
-//        intent.putExtra("apellido",user.getApellido());
-//        intent.putExtra("telefono",user.getTelefono());
-//        intent.putExtra("fotoPerfil",user.getFotoPerfil());
-//        intent.putExtra("puntuacion",user.getPuntuacion());
-//        intent.putExtra("routesId",user.getFotoPerfil());
-        //startActivity(intent);
     }
 
 }

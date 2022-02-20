@@ -6,7 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".fragments.CreateRoutesFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/mapView"
+        android:layout_width="match_parent"
+        android:layout_height="157dp"
+        app:layout_constraintBottom_toTopOf="@+id/txtFecha"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtDestino" />
 
     <TextView
         android:id="@+id/textView"
@@ -63,7 +70,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtDestino"
-        app:layout_constraintVertical_bias="0.102"
+        app:layout_constraintVertical_bias="0.408"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <Button

@@ -15,11 +15,11 @@ public class Route extends RealmObject {
     private String origin;
     private int freeSeats;
     private Date dateHour;
-    private String driver;
+    private int driver;
 
     public Route(){}
 
-    public Route(String origin, String destiny, int freeSeats, Date dateHour, String driver) {
+    public Route(String origin, String destiny, int freeSeats, Date dateHour, int driver) {
         this.id = MyApplication.routeId.incrementAndGet();
         this.destiny = destiny;
         this.origin = origin;
@@ -58,7 +58,7 @@ public class Route extends RealmObject {
 
     public void setDateHour(Date dateHour) { this.dateHour = dateHour; }
 
-    public String getDriver() { return driver; }
+    public int getDriver() { return driver; }
 
-    public void setDriver(String driver) { this.driver = driver; }
+    public void setDriver(int driver) { this.driver = driver; }
 }

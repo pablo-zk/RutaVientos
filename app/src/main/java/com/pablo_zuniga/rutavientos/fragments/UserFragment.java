@@ -1,7 +1,9 @@
 package com.pablo_zuniga.rutavientos.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -41,6 +43,16 @@ public class  UserFragment extends Fragment {
         // Required empty public constructor
     }
 
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+        try {
+            callback = (DataListener) context;
+        }catch (Exception e){
+            throw new ClassCastException(context.toString() + "should implement DataListener");
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -72,26 +84,31 @@ public class  UserFragment extends Fragment {
 
         //txtTelefono.setText(userActive.getTelefono());
 
-        //Calcular en base a las rutas que ha creado el nivel de miembro: Member/Pro/Expert
-        txtMember.setText("RutaVientos member");
 
-        //METER PARA PRUEBA UNA RUTA PARA ESTE USUARIO - CREATE RUTA TODAVI NO HECHO
+
+        //METER PARA PRUEBA UNA RUTA PARA ESTE USUARIO - CREATE RUTA TODAVIA NO HECHO
         realm = Realm.getDefaultInstance();
-        Route ruta = new Route("Cuatro Vientos", "La morea", 3, new Date(2022, 2, 28, 10, 30,00),userActive.getNombre());
+        Route ruta = new Route("Cuatro Vientos", "La morea", 3, new Date(2022, 2, 28, 10, 30,00),userActive.getId());
         realm.beginTransaction();
         realm.copyToRealm(ruta);
         realm.commitTransaction();
         realm = Realm.getDefaultInstance();
-        //TODO aquí busco por nombre del conductor, pero pueden existir varios usuarios con ese nombre.
-        // Habría que guardar en Route como conductor al usuario entero o por lo menos solo el id.
-        //Despues para mostrarlo en el route_item habria que llamar al realm y buscar el user por ese id y ya poner el nombre o coger cualquier otro campo.
-        RealmResults<Route> realmRutas = realm.where(Route.class).equalTo("conductor",userActive.getNombre()).findAll();
+
+        RealmResults<Route> realmRutas = realm.where(Route.class).equalTo("driver",userActive.getId()).findAll();
+
+        //Calcular en base a las rutas que ha creado el nivel de miembro: Member/Pro/Expert
+        if(realmRutas.size() < 5){
+            txtMember.setText("RutaVientos member");
+        }else if(realmRutas.size() < 10){
+            txtMember.setText("RutaVientos Pro member");
+        }else{
+            txtMember.setText("RutaVientos Expert member");
+        }
 
         recyclerRutas.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false));
         RoutesAdapter routesAdapter = new RoutesAdapter(realmRutas, new RoutesAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Route ruta, int position) {
-                //¿sendData? - enviar la informacion de la ruta a una vista detalles para apuntarse.
                 callback.sendData(ruta);
             }
         });

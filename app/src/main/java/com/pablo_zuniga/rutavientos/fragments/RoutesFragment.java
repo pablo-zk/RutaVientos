@@ -53,7 +53,6 @@ public class RoutesFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_routes, container, false);
 
-        Toast.makeText(view.getContext(),"Este es el fragment Routes", Toast.LENGTH_SHORT).show();
         this.recyclerRoutes = (RecyclerView) view.findViewById(R.id.recyclerRoutes);
 
         realm = Realm.getDefaultInstance();
@@ -61,7 +60,7 @@ public class RoutesFragment extends Fragment {
 
         this.recyclerRoutes.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false));
         RoutesAdapter routesAdapter = new RoutesAdapter(realmResults, (ruta, position) -> {
-            //¿sendData? - enviar la informacion de la ruta a una vista detalles para apuntarse.
+            callback.sendData(ruta);
         });
         this.recyclerRoutes.setAdapter(routesAdapter);
         return view;
