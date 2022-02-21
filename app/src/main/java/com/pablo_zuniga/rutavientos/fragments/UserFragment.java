@@ -20,6 +20,7 @@ import com.pablo_zuniga.rutavientos.adapters.RoutesAdapter;
 import com.pablo_zuniga.rutavientos.models.Route;
 import com.pablo_zuniga.rutavientos.models.User;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -41,6 +42,8 @@ public class  UserFragment extends Fragment {
     Switch switchRoutes;
     RecyclerView recyclerRutas;
     User userActive;
+    RealmResults<Route> realmRutas;
+    ArrayList<Route> arrayRoute;
 
     public UserFragment() {
         // Required empty public constructor
@@ -98,15 +101,15 @@ public class  UserFragment extends Fragment {
 
 
         //METER PARA PRUEBA UNA RUTA PARA ESTE USUARIO - CREATE RUTA TODAVIA NO HECHO
-        realm = Realm.getDefaultInstance();
-        Route ruta = new Route("Cuatro Vientos", "La morea", 3, new Date(2022, 2, 28, 10, 30,00),userActive.getId());
-        realm.beginTransaction();
-        realm.copyToRealm(ruta);
-        realm.commitTransaction();
-        realm = Realm.getDefaultInstance();
+//        realm = Realm.getDefaultInstance();
+//        Route ruta = new Route("Cuatro Vientos", "La morea", 3, new Date(2022, 2, 28, 10, 30,00),userActive.getId());
+//        realm.beginTransaction();
+//        realm.copyToRealm(ruta);
+//        realm.commitTransaction();
+//        realm = Realm.getDefaultInstance();
 
-        RealmResults<Route> realmRutas = realm.where(Route.class).equalTo("driver",userActive.getId()).findAll();
-
+        realmRutas = realm.where(Route.class).equalTo("driver",userActive.getId()).findAll();
+        showRoutes(view);
         //Calcular en base a las rutas que ha creado el nivel de miembro: Member/Pro/Expert
         if(realmRutas.size() < 5){
             txtMember.setText("RutaVientos member");
@@ -124,16 +127,21 @@ public class  UserFragment extends Fragment {
                 if(switchRoutes.isChecked()){
                     //Obtengo todas las rutas del usuario
                     routesUser = realm.where(Route.class).equalTo("driver",userActive.getId()).findAll();
+                    showRoutes(view);
                 }else{
-                    //Obtener todas las rutas NO creadas por el usuario y buecar cuales coinciden con su getIdRoutes().
-                    RealmResults<Route> routesTmp = realm.where(Route.class).notEqualTo("driver",userActive.getId()).findAll();
-                    for (int routesApuntado : userActive.getRoutesId()) {
+                    //Obtener todas las rutas NO creadas por el usuario y buscar cuales coinciden con su getIdRoutes().
+                    realmRutas = realm.where(Route.class).notEqualTo("driver",userActive.getId()).findAll();
 
-                    }
+                    showRoutes(view);
                 }
             }
         });
 
+
+        return view;
+    }
+
+    public void showRoutes(View view){
         recyclerRutas.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false));
         RoutesAdapter routesAdapter = new RoutesAdapter(realmRutas, new RoutesAdapter.OnItemClickListener() {
             @Override
@@ -142,9 +150,7 @@ public class  UserFragment extends Fragment {
             }
         });
         recyclerRutas.setAdapter(routesAdapter);
-        return view;
     }
-
     public interface DataListener {
         public void sendData(Route route);
     }

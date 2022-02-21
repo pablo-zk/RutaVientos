@@ -18,13 +18,23 @@ import android.widget.ImageButton;
 
 import com.pablo_zuniga.rutavientos.R;
 import com.pablo_zuniga.rutavientos.activities.MapsActivity;
+import com.pablo_zuniga.rutavientos.models.Route;
+import com.pablo_zuniga.rutavientos.models.User;
+
+import java.util.Date;
+
+import io.realm.Realm;
+import io.realm.RealmResults;
 
 public class CreateRoutesFragment extends Fragment {
 
     EditText txtOrigen;
     EditText txtDestino;
     ImageButton btnChange;
-
+    Button create;
+    Realm realm;
+    RealmResults<User> realmUser;
+    User userActive;
     public CreateRoutesFragment() {}
 
     @Override
@@ -35,6 +45,7 @@ public class CreateRoutesFragment extends Fragment {
         txtDestino = (EditText) view.findViewById(R.id.txtDestino);
         txtOrigen = (EditText) view.findViewById(R.id.txtOrigen);
         btnChange = (ImageButton) view.findViewById(R.id.btnChange);
+        create = (Button) view.findViewById(R.id.btnCreate);
 
         txtOrigen.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,6 +71,19 @@ public class CreateRoutesFragment extends Fragment {
                 txtOrigen.setText(textoDestino);
             }
         });
+        create.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                realm = Realm.getDefaultInstance();
+                realmUser = realm.where(User.class).equalTo("isActive",true).findAll();
+
+                Route route = new Route(txtOrigen.getText().toString(), txtDestino.getText().toString(), 3, new Date(2022, 2, 11, 10, 30),realmUser.get(0).getId());
+                realm.beginTransaction();
+                realm.copyToRealm(route);
+                realm.commitTransaction();
+            }
+        });
+
 
         return view;
     }

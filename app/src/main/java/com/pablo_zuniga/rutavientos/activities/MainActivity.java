@@ -47,19 +47,19 @@ public class MainActivity extends AppCompatActivity implements RoutesFragment.Da
         //Intent intent = new Intent(this, LoginActivity.class); startActivity(intent); finish();
         realm = Realm.getDefaultInstance();
 
-        ArrayList<User> users = new ArrayList<>();
-        users.add(new User("p","1234","Pablo","Zuniga",999666333,0,0,new RealmList<Integer>(),false));
-        users.add(new User("a","1234","Asier","Elorza",111222333,0,0,new RealmList<Integer>(),false));
-        users.add(new User("g","1234","Gorka","Erdozain",444555666,0,0,new RealmList<Integer>(),false));
+        //ArrayList<User> users = new ArrayList<>();
+        //users.add(new User("p","1234","Pablo","Zuniga",999666333,0,0,new RealmList<Integer>(),false));
+        //users.add(new User("a","1234","Asier","Elorza",111222333,0,0,new RealmList<Integer>(),false));
+        //users.add(new User("g","1234","Gorka","Erdozain",444555666,0,0,new RealmList<Integer>(),false));
 
-        routes = new ArrayList<>();
-        routes.add(new Route("Cuatrovientos", "La morea", 3, new Date(2022, 2, 11, 10, 30),users.get(0).getId() ));
-        routes.add(new Route("Estella", "Cuatrovientos", 2, new Date(2022, 2, 17, 6, 30),users.get(1).getId() ));
-        routes.add(new Route("Cuatrovientos", "Itaroa", 4, new Date(2022, 2, 11, 19, 30),users.get(2).getId() ));
+        //routes = new ArrayList<>();
+        //routes.add(new Route("Cuatrovientos", "La morea", 3, new Date(2022, 2, 11, 10, 30),users.get(0).getId() ));
+        //routes.add(new Route("Estella", "Cuatrovientos", 2, new Date(2022, 2, 17, 6, 30),users.get(1).getId() ));
+        //routes.add(new Route("Cuatrovientos", "Itaroa", 4, new Date(2022, 2, 11, 19, 30),users.get(2).getId() ));
         //realm.deleteAll();
-        realm.beginTransaction();
-        realm.copyToRealm(routes);
-        realm.commitTransaction();
+        //realm.beginTransaction();
+        //realm.copyToRealm(routes);
+        //realm.commitTransaction();
 
         logout = (ImageView) findViewById(R.id.imgLogOut);
 
