@@ -46,8 +46,9 @@ public class LoginActivity extends AppCompatActivity implements LoginFragment.Da
         setContentView(R.layout.activity_login);
         realm = Realm.getDefaultInstance();
         realm.beginTransaction();
-        realm.deleteAll();
+        //realm.deleteAll();
         realUsers = realm.where(User.class).findAll();
+        //realUsers = realm.where(User.class).equalTo("isActive",Boolean.TRUE).findAll();
         for (User user : realUsers) {
             if (user.isActive()){
                 sendData(user);

@@ -6,6 +6,8 @@ import androidx.viewpager.widget.ViewPager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
@@ -22,6 +24,7 @@ import java.util.Date;
 
 import io.realm.Realm;
 import io.realm.RealmList;
+import io.realm.RealmResults;
 
 
 public class MainActivity extends AppCompatActivity implements RoutesFragment.DataListener, UserFragment.DataListener {
@@ -31,6 +34,9 @@ public class MainActivity extends AppCompatActivity implements RoutesFragment.Da
     TabLayout tabLayout;
     ViewPager viewPager;
     MyPagerAdapter pagerAdapter;
+    ImageView logout;
+    RealmResults<User> realmUser;
+    User userActive;
 
     User userGlobal;
 
@@ -45,9 +51,6 @@ public class MainActivity extends AppCompatActivity implements RoutesFragment.Da
         users.add(new User("p","1234","Pablo","Zuniga",999666333,0,0,new RealmList<Integer>(),false));
         users.add(new User("a","1234","Asier","Elorza",111222333,0,0,new RealmList<Integer>(),false));
         users.add(new User("g","1234","Gorka","Erdozain",444555666,0,0,new RealmList<Integer>(),false));
-        realm.beginTransaction();
-        realm.copyToRealm(users);
-        realm.commitTransaction();
 
         routes = new ArrayList<>();
         routes.add(new Route("Cuatrovientos", "La morea", 3, new Date(2022, 2, 11, 10, 30),users.get(0).getId() ));
@@ -58,6 +61,26 @@ public class MainActivity extends AppCompatActivity implements RoutesFragment.Da
         realm.copyToRealm(routes);
         realm.commitTransaction();
 
+        logout = (ImageView) findViewById(R.id.imgLogOut);
+
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                realm.beginTransaction();
+                realmUser = realm.where(User.class).findAll();
+                for (User user : realmUser) {
+                    if (user.isActive()){
+                        userActive = user;
+                    }
+                }
+                userActive.setActive(false);
+                realm.copyToRealmOrUpdate(userActive);
+                realm.commitTransaction();
+
+                goLog();
+            }
+        });
 
 
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
@@ -69,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements RoutesFragment.Da
         pagerAdapter = new MyPagerAdapter(getSupportFragmentManager(),tabLayout.getTabCount());
         viewPager.setAdapter(pagerAdapter);
 
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+                viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -90,6 +113,11 @@ public class MainActivity extends AppCompatActivity implements RoutesFragment.Da
         //intent.putExtra("origin", route.getOrigin());
         //intent.putExtra("destiny", route.getDestiny());
         intent.putExtra("id", route.getId());
+        startActivity(intent);
+    }
+
+    public void goLog(){
+        Intent intent = new Intent(this,LoginActivity.class); finish();
         startActivity(intent);
     }
 

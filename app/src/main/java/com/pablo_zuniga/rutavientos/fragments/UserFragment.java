@@ -38,6 +38,7 @@ public class  UserFragment extends Fragment {
     TextView txtCo2;
     TextView txtMember;
     RecyclerView recyclerRutas;
+    User userActive;
 
     public UserFragment() {
         // Required empty public constructor
@@ -70,11 +71,18 @@ public class  UserFragment extends Fragment {
         recyclerRutas = (RecyclerView) view.findViewById(R.id.recylclerRutas);
 
         realm = Realm.getDefaultInstance();
-        realmUser = realm.where(User.class).equalTo("isActive",Boolean.TRUE).findAll();
-        User userActive = realmUser.first();
+        //realmUser = realm.where(User.class).equalTo("isActive",Boolean.TRUE).findAll();
+        realmUser = realm.where(User.class).findAll();
+        for (User user : realmUser) {
+            if (user.isActive()){
+                userActive = user;
+            }
+        }
+
 
         String aux = userActive.getNombre() + " " + userActive.getApellido();
         txtNombreCompleto.setText(aux);
+        txtTelefono.setText(String.valueOf(userActive.getTelefono()));
         aux = "Miembro desde el " + userActive.getFechaCreacion();
         txtFechaCreacion.setText(aux);
         aux = userActive.getPuntuacion() + " votos";

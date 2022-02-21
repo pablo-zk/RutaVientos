@@ -32,6 +32,7 @@ public class SignupFragment extends Fragment {
     RealmList<Integer> listaRutas;
     float v=0;
     private Button btnLog;
+    int numeroTelefono;
 
     private Realm realm;
 
@@ -69,6 +70,12 @@ public class SignupFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (name.getTranslationX() == 0){
+                    try {
+                        numeroTelefono = Integer.parseInt(phone.getText().toString().trim());
+                    } catch (NumberFormatException e){
+                        phone.setError("Telefono incorrecto");
+                        return;
+                    }
                     name.animate().translationX(-1800).alpha(0).setDuration(900).setStartDelay(200).start();
                     lasname.animate().translationX(-1800).alpha(0).setDuration(900).setStartDelay(250).start();
                     phone.animate().translationX(-1800).alpha(0).setDuration(900).setStartDelay(300).start();
@@ -88,7 +95,7 @@ public class SignupFragment extends Fragment {
 
                     listaRutas = new RealmList<Integer>();
                     realm = Realm.getDefaultInstance();
-                    user = new User(username.getText().toString(), passwd.getText().toString(), "", "",1,1,1,listaRutas, true);
+                    user = new User(username.getText().toString(), passwd.getText().toString(), name.getText().toString(), lasname.getText().toString(),numeroTelefono,1,1,listaRutas, true);
                     realm.beginTransaction();
                     realm.copyToRealm(user);
                     realm.commitTransaction();

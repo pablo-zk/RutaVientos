@@ -77,8 +77,8 @@ public class LoginFragment extends Fragment {
                 realm = Realm.getDefaultInstance();
                 realUsers = realm.where(User.class).equalTo("username", user.getText().toString()).equalTo("password", passwd.getText().toString()).findAll();
                 if (realUsers.size() != 0){
-                    realUsers.get(0).setActive(true);
                     realm.beginTransaction();
+                    realUsers.get(0).setActive(true);
                     realm.copyToRealmOrUpdate(realUsers.get(0));
                     realm.commitTransaction();
                     callback.sendData(realUsers.get(0));
