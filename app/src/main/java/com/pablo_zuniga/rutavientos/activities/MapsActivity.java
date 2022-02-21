@@ -37,6 +37,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private ActivityMapsBinding binding;
     private MarkerOptions marker;
     private Boolean markerCreated;
+    private Geocoder geoCoder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +64,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         markerCreated = false;
+        geoCoder = new Geocoder(getBaseContext(), Locale.getDefault());
         mMap = googleMap;
         mMap.setMinZoomPreference(12);
 
@@ -87,12 +89,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 marker.draggable(true);
                 mMap.addMarker(marker);
 
-                Geocoder geoCoder = new Geocoder(getBaseContext(), Locale.getDefault());
+
                 List<Address> matches = null;
                 try {
                     matches = geoCoder.getFromLocation(latLng.latitude, latLng.longitude, 1);
                 } catch (IOException e) {
                     e.printStackTrace();
+                }
+                if(matches == null){
+                    return;
                 }
                 Address address = matches.get(0);
                 String addressText = String.format("%s", address.getAddressLine(0));
