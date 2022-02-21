@@ -11,6 +11,7 @@ import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.pablo_zuniga.rutavientos.R;
 import com.pablo_zuniga.rutavientos.models.Route;
@@ -54,7 +55,11 @@ public class RouteDetails extends AppCompatActivity {
                 if(userCurrent.getRoutesId().contains(routeActual.getId())){
                     showInfoAlert("¿Seguro que quieres desapuntarte de la ruta " + routeActual.getOrigin() + "-" + routeActual.getDestiny() + " a las " + routeActual.getDateHour() + "?");
                 }else{
-                    showInfoAlert("¿Seguro que quieres apuntarte de la ruta " + routeActual.getOrigin() + "-" + routeActual.getDestiny() + " a las " + routeActual.getDateHour() + "?");
+                    if(routeActual.getFreeSeats() == 0){
+                        Toast.makeText(getBaseContext(),"ERROR: No quedan plazas disponibles", Toast.LENGTH_SHORT).show();
+                    }else{
+                        showInfoAlert("¿Seguro que quieres apuntarte de la ruta " + routeActual.getOrigin() + "-" + routeActual.getDestiny() + " a las " + routeActual.getDateHour() + "?");
+                    }
                 }
             }
         });
@@ -71,12 +76,17 @@ public class RouteDetails extends AppCompatActivity {
                         realm.beginTransaction();
                         if(message.contains("desapuntarse")){
                             userCurrent.getRoutesId().remove(routeActual.getId());
+                            routeActual.setFreeSeats(routeActual.getFreeSeats() + 1);
                             btnApuntarse.setText("Apuntarse");
                         }else{
                             userCurrent.getRoutesId().add(routeActual.getId());
+                            routeActual.setFreeSeats(routeActual.getFreeSeats() - 1);
                             btnApuntarse.setText("Desapuntarse");
                         }
                         realm.copyToRealmOrUpdate(userCurrent);
+                        realm.commitTransaction();
+                        realm.beginTransaction();
+                        realm.copyToRealmOrUpdate(routeActual);
                         realm.commitTransaction();
                     }
                 })

@@ -51,7 +51,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtCo2"
-        app:layout_constraintVertical_bias="0.089" />
+        app:layout_constraintVertical_bias="0.046" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -94,13 +94,13 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgProfile"
-        app:layout_constraintVertical_bias="0.588" />
+        app:layout_constraintVertical_bias="0.392" />
 
     <TextView
         android:id="@+id/txtVotos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="8dp"
         android:text="5 votos"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/txtMember"
@@ -121,11 +121,12 @@
         android:id="@+id/recylclerRutas"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtRutas" />
+        app:layout_constraintTop_toBottomOf="@+id/switchRutasUser"
+        app:layout_constraintVertical_bias="0.158" />
 
     <TextView
         android:id="@+id/txtFechaCreacion"
@@ -139,15 +140,13 @@
         app:layout_constraintStart_toStartOf="@+id/txtCompleteName"
         app:layout_constraintTop_toBottomOf="@+id/txtCompleteName" />
 
-    <TextView
-        android:id="@+id/txtRutas"
+    <Switch
+        android:id="@+id/switchRutasUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="34dp"
         android:text="Tus rutas"
-        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.122"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider4" />
 

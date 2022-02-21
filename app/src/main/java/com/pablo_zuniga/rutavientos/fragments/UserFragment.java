@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.pablo_zuniga.rutavientos.R;
@@ -37,6 +38,7 @@ public class  UserFragment extends Fragment {
     TextView txtPuntos;
     TextView txtCo2;
     TextView txtMember;
+    Switch switchRoutes;
     RecyclerView recyclerRutas;
     User userActive;
 
@@ -69,6 +71,7 @@ public class  UserFragment extends Fragment {
         txtMember = (TextView) view.findViewById(R.id.txtMember);
         imgPerfil = (ImageView) view.findViewById(R.id.imgProfile);
         recyclerRutas = (RecyclerView) view.findViewById(R.id.recylclerRutas);
+        switchRoutes = (Switch) view.findViewById(R.id.switchRutasUser);
 
         realm = Realm.getDefaultInstance();
         //realmUser = realm.where(User.class).equalTo("isActive",Boolean.TRUE).findAll();
@@ -112,6 +115,24 @@ public class  UserFragment extends Fragment {
         }else{
             txtMember.setText("RutaVientos Expert member");
         }
+
+        //TODO Añadido nuevo, la cosa sería pasar al recycler adpater una lista u otra
+        switchRoutes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RealmResults<Route> routesUser;
+                if(switchRoutes.isChecked()){
+                    //Obtengo todas las rutas del usuario
+                    routesUser = realm.where(Route.class).equalTo("driver",userActive.getId()).findAll();
+                }else{
+                    //Obtener todas las rutas NO creadas por el usuario y buecar cuales coinciden con su getIdRoutes().
+                    RealmResults<Route> routesTmp = realm.where(Route.class).notEqualTo("driver",userActive.getId()).findAll();
+                    for (int routesApuntado : userActive.getRoutesId()) {
+
+                    }
+                }
+            }
+        });
 
         recyclerRutas.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false));
         RoutesAdapter routesAdapter = new RoutesAdapter(realmRutas, new RoutesAdapter.OnItemClickListener() {
