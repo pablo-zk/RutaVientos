@@ -6,15 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".fragments.CreateRoutesFragment">
 
-    <com.google.android.gms.maps.MapView
-        android:id="@+id/mapView"
-        android:layout_width="match_parent"
-        android:layout_height="157dp"
-        app:layout_constraintBottom_toTopOf="@+id/txtFecha"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtDestino" />
-
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"

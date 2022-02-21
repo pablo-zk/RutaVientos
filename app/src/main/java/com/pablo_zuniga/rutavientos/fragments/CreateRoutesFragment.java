@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.pablo_zuniga.rutavientos.R;
+import com.pablo_zuniga.rutavientos.activities.MapsActivity;
 
 public class CreateRoutesFragment extends Fragment {
 
@@ -34,6 +35,14 @@ public class CreateRoutesFragment extends Fragment {
         txtDestino = (EditText) view.findViewById(R.id.txtDestino);
         txtOrigen = (EditText) view.findViewById(R.id.txtOrigen);
         btnChange = (ImageButton) view.findViewById(R.id.btnChange);
+
+        txtOrigen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), MapsActivity.class);
+                startActivity(intent);
+            }
+        });
 
         //txtDestino.setInputType(InputType.TYPE_NULL);
         btnChange.setOnClickListener(new View.OnClickListener() {
