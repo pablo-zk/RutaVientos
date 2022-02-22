@@ -27,6 +27,8 @@ public class RouteDetails extends AppCompatActivity {
     User userOfRoute;
     User userCurrent;
     Button btnApuntarse;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,7 +77,7 @@ public class RouteDetails extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         realm.beginTransaction();
                         if(message.contains("desapuntarte")){
-                            userCurrent.getRoutesId().remove(routeActual.getId());
+                            userCurrent.getRoutesId().remove(userCurrent.getRoutesId().indexOf(routeActual.getId()));
                             routeActual.setFreeSeats(routeActual.getFreeSeats() + 1);
                             btnApuntarse.setText("Apuntarse");
                         }else{

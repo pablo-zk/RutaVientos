@@ -6,6 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".activities.RouteDetails">
 
+    <ImageView
+        android:id="@+id/imgBack"
+        android:layout_width="25dp"
+        android:layout_height="26dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/idDateView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.041"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/back" />
+
     <TextView
         android:id="@+id/idDateView"
         android:layout_width="wrap_content"
@@ -13,6 +26,7 @@
         android:layout_marginTop="64dp"
         android:text="lunes 24 febrero"
         android:textSize="25sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.177"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,7 +36,7 @@
         android:id="@+id/idDateView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="38dp"
         android:text="Calle esteban armedariz"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -70,7 +84,7 @@
         android:layout_width="5dp"
         android:layout_height="160dp"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/separador"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/idDateView" />
@@ -90,7 +104,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.868"
+        app:layout_constraintVertical_bias="0.923"
         app:layout_constraintWidth_percent=".8" />
 
 
