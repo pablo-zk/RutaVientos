@@ -7,8 +7,6 @@
     tools:context=".activities.RouteDetails">
 
 
-
-
     <TextView
         android:id="@+id/idDateView"
         android:layout_width="wrap_content"
@@ -21,7 +19,6 @@
         app:layout_constraintHorizontal_bias="0.181"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
 
     <TextView
