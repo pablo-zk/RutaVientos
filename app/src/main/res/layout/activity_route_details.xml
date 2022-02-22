@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".activities.RouteDetails">
 
-
     <TextView
         android:id="@+id/idDateView"
         android:layout_width="wrap_content"
@@ -19,7 +18,6 @@
         app:layout_constraintHorizontal_bias="0.181"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <TextView
         android:id="@+id/idDateView5"
@@ -78,6 +76,7 @@
         android:background="@drawable/separador"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/idDateView" />
+
     <View
         android:id="@+id/divider2"
         android:layout_width="409dp"
@@ -90,7 +89,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view"
         app:layout_constraintVertical_bias="0.048" />
-
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profile_image"
@@ -128,6 +126,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/idDateView6" />
 
+    <pl.droidsonroids.gif.GifImageView
+        android:layout_width="wrap_content"
+        android:layout_height="170dp"
+        android:src="@drawable/car"
+        app:layout_constraintTop_toBottomOf="@id/idDateView7"
+        app:layout_constraintBottom_toTopOf="@id/btnApuntarse"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
     <Button
         android:id="@+id/btnApuntarse"
         style="@style/Widget.AppCompat.Button.Colored"
@@ -145,6 +152,5 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.923"
         app:layout_constraintWidth_percent=".8" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
