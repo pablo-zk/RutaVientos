@@ -1,5 +1,6 @@
 package com.pablo_zuniga.rutavientos.fragments;
 
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,11 +14,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.pablo_zuniga.rutavientos.R;
 import com.pablo_zuniga.rutavientos.activities.MapsActivity;
+import com.pablo_zuniga.rutavientos.dialog.DatePickerFragment;
 import com.pablo_zuniga.rutavientos.models.Route;
 import com.pablo_zuniga.rutavientos.models.User;
 
@@ -34,7 +37,7 @@ public class CreateRoutesFragment extends Fragment {
     Button create;
     Realm realm;
     RealmResults<User> realmUser;
-    User userActive;
+    EditText etPlannedDate;
     public CreateRoutesFragment() {}
 
     @Override
@@ -42,10 +45,11 @@ public class CreateRoutesFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_create_routes, container, false);
         checkGPS();
-        txtDestino = (EditText) view.findViewById(R.id.txtDestino);
+        txtDestino = (EditText) view.findViewById(R.id.txtDestino2);
         txtOrigen = (EditText) view.findViewById(R.id.txtOrigen);
         btnChange = (ImageButton) view.findViewById(R.id.btnChange);
         create = (Button) view.findViewById(R.id.btnCreate);
+        etPlannedDate = (EditText) view.findViewById(R.id.etPlannedDate);
 
         txtOrigen.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,6 +73,16 @@ public class CreateRoutesFragment extends Fragment {
                 String textoDestino = String.valueOf(txtDestino.getText());
                 txtDestino.setText(txtOrigen.getText());
                 txtOrigen.setText(textoDestino);
+            }
+        });
+        etPlannedDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                switch (view.getId()){
+                    case R.id.etPlannedDate:
+                        showDatePickerDialog();
+                        break;
+                }
             }
         });
         create.setOnClickListener(new View.OnClickListener() {
@@ -113,5 +127,17 @@ public class CreateRoutesFragment extends Fragment {
                 })
                 .setNegativeButton("Cancel",null)
                 .show();
+    }
+    private void showDatePickerDialog() {
+        DatePickerFragment newFragment = DatePickerFragment.newInstance(new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                // +1 because January is zero
+                final String selectedDate = day + " / " + (month+1) + " / " + year;
+                etPlannedDate.setText(selectedDate);
+            }
+        });
+
+        newFragment.show(getActivity().getSupportFragmentManager(), "datePicker");
     }
 }

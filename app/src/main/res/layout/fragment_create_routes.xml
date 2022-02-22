@@ -6,110 +6,122 @@
     android:layout_height="match_parent"
     tools:context=".fragments.CreateRoutesFragment">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:text="CREA TU VIAJE"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <EditText
         android:id="@+id/txtOrigen"
         android:layout_width="0dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="60dp"
-        android:ems="10"
-        android:hint="Origen"
-        android:inputType="textPersonName"
-        android:textSize="19sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <EditText
-        android:id="@+id/txtDestino"
-        android:layout_width="333dp"
-        android:layout_marginTop="48dp"
-        android:layout_height="55dp"
-        android:ems="10"
-        android:enabled="false"
-        android:inputType="textPersonName"
-        android:text="Cuatrovientos"
-        android:textSize="19sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView3"
-        app:layout_constraintTop_toBottomOf="@+id/txtOrigen" />
-
-    <EditText
-        android:id="@+id/txtFecha"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="50dp"
-        android:ems="10"
-        android:inputType="date"
-        android:text="Fecha y hora"
-        android:textSize="19sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtDestino"
-        app:layout_constraintVertical_bias="0.408"
-        tools:ignore="SpeakableTextPresentCheck" />
-
-    <Button
-        android:id="@+id/btnCreate"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="65dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/edit_text"
+        android:enabled="false"
+        android:hint="Origen"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:text="Cuatrovinetos"
+        app:layout_constraintBottom_toTopOf="@+id/btnChange"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtFecha" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent=".8" />
 
     <ImageButton
         android:id="@+id/btnChange"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="8dp"
         android:backgroundTint="#00FDFDFD"
+        android:scaleType="centerCrop"
         android:src="@drawable/exchange"
-        app:layout_constraintBottom_toTopOf="@+id/txtDestino"
+        app:layout_constraintBottom_toTopOf="@+id/txtDestino2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtOrigen"
         tools:ignore="SpeakableTextPresentCheck" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/txtDestino2"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
-        android:layout_marginEnd="24dp"
-        android:text="Origen"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/textView"
-        app:layout_constraintHorizontal_bias="0.529"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/edit_text"
+        android:hint="Destino"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/btnChange"
+        app:layout_constraintWidth_percent=".8" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
+
+    <EditText
+        android:id="@+id/etPlannedDate"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="80dp"
-        android:text="Destino"
-        android:textSize="18sp"
-        android:textStyle="bold"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="76dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/edit_text"
+        android:clickable="true"
+        android:focusable="false"
+        android:hint="DATE"
+        android:inputType="date"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/txtDestino2"
+        app:layout_constraintWidth_percent=".8" />
+
+    <EditText
+        android:id="@+id/etPlannedTime"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="76dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/edit_text"
+        android:clickable="true"
+        android:focusable="false"
+        android:hint="TIME"
+        android:inputType="date"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtDestino2"
+        app:layout_constraintWidth_percent=".8" />
+
+    <Button
+        android:id="@+id/btnCreate"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:background="@drawable/button_bg"
+        android:text="Crear"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:backgroundTint="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.512"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etPlannedDate"
+        app:layout_constraintWidth_percent=".8" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

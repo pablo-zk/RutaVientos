@@ -44,7 +44,7 @@ public class  UserFragment extends Fragment {
     User userActive;
     RealmResults<Route> realmRutas;
     ArrayList<Route> arrayRoute;
-
+    RealmResults<Route> realmRutasA;
     public UserFragment() {
         // Required empty public constructor
     }
@@ -98,17 +98,16 @@ public class  UserFragment extends Fragment {
 
         //txtTelefono.setText(userActive.getTelefono());
 
+        if(switchRoutes.isChecked()){
+            //Obtengo todas las rutas del usuario
+            realmRutas = realm.where(Route.class).equalTo("driver",userActive.getId()).findAll();
+            showRoutes(view);
+        }else{
+            //Obtener todas las rutas NO creadas por el usuario y buscar cuales coinciden con su getIdRoutes().
+            realmRutas = realm.where(Route.class).notEqualTo("driver",userActive.getId()).findAll();
+            showRoutes(view);
+        }
 
-
-        //METER PARA PRUEBA UNA RUTA PARA ESTE USUARIO - CREATE RUTA TODAVIA NO HECHO
-//        realm = Realm.getDefaultInstance();
-//        Route ruta = new Route("Cuatro Vientos", "La morea", 3, new Date(2022, 2, 28, 10, 30,00),userActive.getId());
-//        realm.beginTransaction();
-//        realm.copyToRealm(ruta);
-//        realm.commitTransaction();
-//        realm = Realm.getDefaultInstance();
-
-        realmRutas = realm.where(Route.class).equalTo("driver",userActive.getId()).findAll();
         showRoutes(view);
         //Calcular en base a las rutas que ha creado el nivel de miembro: Member/Pro/Expert
         if(realmRutas.size() < 5){
@@ -126,12 +125,14 @@ public class  UserFragment extends Fragment {
                 RealmResults<Route> routesUser;
                 if(switchRoutes.isChecked()){
                     //Obtengo todas las rutas del usuario
-                    routesUser = realm.where(Route.class).equalTo("driver",userActive.getId()).findAll();
+                    realmRutas = realm.where(Route.class).equalTo("driver",userActive.getId()).findAll();
                     showRoutes(view);
                 }else{
                     //Obtener todas las rutas NO creadas por el usuario y buscar cuales coinciden con su getIdRoutes().
                     realmRutas = realm.where(Route.class).notEqualTo("driver",userActive.getId()).findAll();
+                    for ( Route r: realmRutas ) {
 
+                    }
                     showRoutes(view);
                 }
             }
