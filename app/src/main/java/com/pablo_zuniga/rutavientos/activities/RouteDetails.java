@@ -117,13 +117,13 @@ public class RouteDetails extends AppCompatActivity {
 
         if (routeActual.getOrigin().contains("Cuatrovientos")){
             String[] destino = routeActual.getDestiny().split(",");
-            this.txtDestinoC.setText(destino[0].toString());
+            this.txtDestinoC.setText(destino[0].toString() + " " + destino[1].toString());
             this.txtDestino.setText(destino[2].toString());
             this.txtOrigenC.setText(routeActual.getOrigin().toString());
             this.txtOrigen.setText(routeActual.getOrigin().toString());
         } else {
             String[] origen = routeActual.getOrigin().split(",");
-            this.txtOrigenC.setText(origen[0].toString());
+            this.txtOrigenC.setText(origen[0].toString() + " " + origen[1].toString());
             this.txtOrigen.setText(origen[2].toString());
             this.txtDestinoC.setText(routeActual.getDestiny().toString());
             this.txtDestino.setText(routeActual.getDestiny().toString());
@@ -185,6 +185,9 @@ public class RouteDetails extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.O)
     private String getDay(int day){
 
+        if (day == 1){
+            day = 7;
+        }
         Locale locale = new Locale("es", "ES");
         DayOfWeek dDay = DayOfWeek.of(day);
         String dayName=dDay.getDisplayName(TextStyle.FULL,locale);

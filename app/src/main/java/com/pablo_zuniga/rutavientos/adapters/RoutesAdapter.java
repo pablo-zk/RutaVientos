@@ -60,7 +60,14 @@ public class RoutesAdapter extends RecyclerView.Adapter<RoutesAdapter.RoutesData
 
         public void assignData(Route ruta, OnItemClickListener itemListener){
 
-            this.trip.setText(String.format("%s - %s", ruta.getOrigin(), ruta.getDestiny()));
+            if (ruta.getOrigin().contains("Cuatrovientos")){
+                String[] destino = ruta.getDestiny().split(",");
+                this.trip.setText(String.format("%s - %s", ruta.getOrigin(), destino[2].split(" ")[2]));
+            } else {
+                String[] origen = ruta.getOrigin().split(",");
+                this.trip.setText(String.format("%s - %s", origen[2].split(" ")[2], ruta.getDestiny()));
+            }
+            //this.trip.setText(String.format("%s - %s", ruta.getOrigin(), ruta.getDestiny());
             this.hour.setText(String.valueOf(ruta.getDateHour().getHours()) + ":" + String.valueOf(ruta.getDateHour().getMinutes()));
             this.seats.setText(String.format(Locale.getDefault(), "%d plazas", ruta.getFreeSeats()));
 
