@@ -10,6 +10,7 @@ import com.pablo_zuniga.rutavientos.fragments.CreateRoutesFragment;
 import com.pablo_zuniga.rutavientos.fragments.LoginFragment;
 import com.pablo_zuniga.rutavientos.fragments.RoutesFragment;
 import com.pablo_zuniga.rutavientos.fragments.UserFragment;
+import com.pablo_zuniga.rutavientos.fragments.ViajesFragment;
 
 public class MyPagerAdapter extends FragmentPagerAdapter {
 
@@ -31,6 +32,9 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
                 CreateRoutesFragment createRoutesFragment = new CreateRoutesFragment();
                 return createRoutesFragment;
             case 2:
+                ViajesFragment viajesFragment = new ViajesFragment();
+                return viajesFragment;
+            case 3:
                 UserFragment userFragment = new UserFragment();
                 return userFragment;
             default:return null;

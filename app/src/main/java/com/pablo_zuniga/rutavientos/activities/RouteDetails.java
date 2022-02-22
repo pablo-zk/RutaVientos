@@ -74,7 +74,7 @@ public class RouteDetails extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         realm.beginTransaction();
-                        if(message.contains("desapuntarse")){
+                        if(message.contains("desapuntarte")){
                             userCurrent.getRoutesId().remove(routeActual.getId());
                             routeActual.setFreeSeats(routeActual.getFreeSeats() + 1);
                             btnApuntarse.setText("Apuntarse");
