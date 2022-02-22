@@ -11,7 +11,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="250dp"
+        android:layout_marginTop="220dp"
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="4dp"
         android:background="@drawable/edit_text"
@@ -60,35 +60,16 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnChange"
-        app:layout_constraintWidth_percent=".8" />
+        app:layout_constraintWidth_percent=".8"
+        tools:ignore="TouchTargetSizeCheck" />
 
-
-    <EditText
-        android:id="@+id/etPlannedDate"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="76dp"
-        android:background="@drawable/edit_text"
-        android:clickable="true"
-        android:focusable="false"
-        android:hint="DATE"
-        android:inputType="date"
-        android:paddingLeft="20dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        app:layout_constraintEnd_toStartOf="@+id/etPlannedTime"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtDestino2"
-        app:layout_constraintWidth_percent=".8" />
 
     <EditText
         android:id="@+id/etPlannedTime"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="21dp"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="44dp"
         android:layout_marginEnd="40dp"
         android:background="@drawable/edit_text"
         android:clickable="true"
@@ -103,12 +84,32 @@
         app:layout_constraintTop_toBottomOf="@+id/txtDestino2"
         app:layout_constraintWidth_percent=".8" />
 
+    <EditText
+        android:id="@+id/etPlannedDate"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="44dp"
+        android:background="@drawable/edit_text"
+        android:clickable="true"
+        android:focusable="false"
+        android:hint="DATE"
+        android:inputType="date"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        app:layout_constraintEnd_toStartOf="@+id/etPlannedTime"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtDestino2"
+        app:layout_constraintWidth_percent=".8" />
+
     <Button
         android:id="@+id/btnCreate"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="96dp"
         android:background="@drawable/button_bg"
         android:text="Crear"
         android:textColor="@color/white"
@@ -116,9 +117,24 @@
         android:textStyle="bold"
         app:backgroundTint="@null"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.512"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etPlannedDate"
         app:layout_constraintWidth_percent=".8" />
+
+    <EditText
+        android:id="@+id/txtPlazas"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/edit_text"
+        android:hint="Plazas libres"
+        android:inputType="number"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etPlannedDate" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

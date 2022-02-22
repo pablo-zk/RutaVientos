@@ -12,6 +12,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.pablo_zuniga.rutavientos.R;
 import com.pablo_zuniga.rutavientos.dialog.DatePickerFragment;
@@ -28,22 +29,26 @@ public class CreateRoutesActivity extends AppCompatActivity {
 
     EditText txtOrigen;
     EditText txtDestino;
+    EditText txtPlazas;
     ImageButton btnChange;
     Button create;
     Realm realm;
     RealmResults<User> realmUser;
     EditText etPlannedDate;
     EditText etPlannedTime;
+    Date fechaUtilizada;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_routes);
 
+        fechaUtilizada = new Date(0,0,0,0,0,0);
         Bundle bundle = getIntent().getExtras();
 
         txtDestino = (EditText) findViewById(R.id.txtDestino2);
         txtOrigen = (EditText) findViewById(R.id.txtOrigen);
+        txtPlazas = (EditText) findViewById(R.id.txtPlazas);
         btnChange = (ImageButton) findViewById(R.id.btnChange);
         create = (Button) findViewById(R.id.btnCreate);
         etPlannedDate = (EditText) findViewById(R.id.etPlannedDate);
@@ -84,10 +89,19 @@ public class CreateRoutesActivity extends AppCompatActivity {
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int plazasLibres = txtPlazas.getText().toString().equals("")? -1: Integer.parseInt(txtPlazas.getText().toString());
+                if(txtOrigen.getText().toString().equals("") || txtDestino.getText().toString().equals("") || fechaUtilizada.getYear() == 0 || txtPlazas.getText().toString().equals("")){
+                    Toast.makeText(CreateRoutesActivity.this,"Rellena todos los campos.",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(plazasLibres < 1 ){
+                    txtPlazas.setError("Valor incorrecto");
+                    return;
+                }
                 realm = Realm.getDefaultInstance();
                 realmUser = realm.where(User.class).equalTo("isActive",true).findAll();
 
-                Route route = new Route(txtOrigen.getText().toString(), txtDestino.getText().toString(), 3, new Date(2022, 2, 11, 10, 30),realmUser.get(0).getId());
+                Route route = new Route(txtOrigen.getText().toString(), txtDestino.getText().toString(), plazasLibres, fechaUtilizada,realmUser.get(0).getId());
                 realm.beginTransaction();
                 realm.copyToRealm(route);
                 realm.commitTransaction();
@@ -106,6 +120,9 @@ public class CreateRoutesActivity extends AppCompatActivity {
                 // +1 because January is zero
                 final String selectedDate = day + " / " + (month+1) + " / " + year;
                 etPlannedDate.setText(selectedDate);
+                fechaUtilizada.setDate(day);
+                fechaUtilizada.setMonth(month+1);
+                fechaUtilizada.setYear(year);
             }
         });
 
@@ -117,6 +134,8 @@ public class CreateRoutesActivity extends AppCompatActivity {
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 final String selectedDate = hourOfDay + ":" + minute;
                 etPlannedTime.setText(selectedDate);
+                fechaUtilizada.setHours(hourOfDay);
+                fechaUtilizada.setMinutes(minute);
             }
         });
 
