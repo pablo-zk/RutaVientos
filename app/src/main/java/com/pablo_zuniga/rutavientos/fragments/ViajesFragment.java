@@ -1,6 +1,7 @@
 package com.pablo_zuniga.rutavientos.fragments;
 
 import android.content.Context;
+import android.media.Image;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.pablo_zuniga.rutavientos.R;
 import com.pablo_zuniga.rutavientos.adapters.RoutesAdapter;
@@ -31,7 +33,7 @@ public class ViajesFragment extends Fragment {
     public RealmResults<Route> realmResults;
     public RealmResults<User> realmUser;
     ArrayList<Route> listViajes = new ArrayList<Route>();
-
+    ImageView img;
     public ViajesFragment() {}
 
     @Override
@@ -61,6 +63,11 @@ public class ViajesFragment extends Fragment {
                     listViajes.add(route);
                 }
             }
+        }
+
+        img = (ImageView) view.findViewById(R.id.imgProfile);
+        if (listViajes.size() == 0){
+            //img.setVisibility(View.VISIBLE);
         }
 
         this.recyclerRoutes.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false));

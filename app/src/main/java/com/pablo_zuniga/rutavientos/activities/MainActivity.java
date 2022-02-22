@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements RoutesFragment.Da
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.home));
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.plus));
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.world));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.routes));
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.user));
 
         viewPager = (ViewPager) findViewById(R.id.viewPager);
