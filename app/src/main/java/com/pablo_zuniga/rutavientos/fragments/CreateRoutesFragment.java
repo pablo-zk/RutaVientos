@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import android.provider.Settings;
@@ -35,9 +36,8 @@ import io.realm.RealmResults;
 
 public class CreateRoutesFragment extends Fragment {
 
-    EditText txtOrigen;
-    EditText txtDestino;
-    ImageButton btnChange;
+    CardView cardDestination4v;
+    CardView cardDestinationOther;
     Button create;
     Realm realm;
     RealmResults<User> realmUser;
@@ -51,11 +51,19 @@ public class CreateRoutesFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_create_routes, container, false);
 
         create = (Button) view.findViewById(R.id.btnCreate);
-        create.setOnClickListener(view1 -> {
+        cardDestination4v = (CardView) view.findViewById(R.id.cardDestination4v);
+        cardDestinationOther = (CardView) view.findViewById(R.id.cardDestinationOther);
+
+        cardDestination4v.setOnClickListener(view1 -> {
             Intent intent = new Intent(getContext(), MapsActivity.class);
-            //Hacer aqui la comprobacion de si ha elegido cuatrovientos como destino u origen
             intent.putExtra("destino","Cuatrovientos");
             intent.putExtra("origen","");
+            startActivity(intent);
+        });
+        cardDestinationOther.setOnClickListener(view1 -> {
+            Intent intent = new Intent(getContext(), MapsActivity.class);
+            intent.putExtra("destino","");
+            intent.putExtra("origen","Cuatrovientos");
             startActivity(intent);
         });
 
