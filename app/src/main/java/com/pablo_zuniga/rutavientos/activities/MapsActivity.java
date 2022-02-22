@@ -10,6 +10,8 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -38,6 +40,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private MarkerOptions marker;
     private Boolean markerCreated;
     private Geocoder geoCoder;
+    Button btnGuardar;
+    String addressText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +54,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        addressText = "";
+        btnGuardar = (Button) findViewById(R.id.btnGuardarUbi);
+        btnGuardar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                Intent intent = new Intent(MapsActivity.this, MainActivity.class);
+                if(addressText == ""){
+                    Toast.makeText(MapsActivity.this,"Clica sobre el mapa y elija una ubicación", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                bundle.putString("address", addressText);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
     }
 
     /**
@@ -100,7 +121,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     return;
                 }
                 Address address = matches.get(0);
-                String addressText = String.format("%s", address.getAddressLine(0));
+                addressText = String.format("%s", address.getAddressLine(0));
                 Toast.makeText(MapsActivity.this,addressText, Toast.LENGTH_SHORT).show();
             }
         });
