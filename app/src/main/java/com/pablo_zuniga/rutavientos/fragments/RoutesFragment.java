@@ -56,7 +56,7 @@ public class RoutesFragment extends Fragment {
         this.recyclerRoutes = (RecyclerView) view.findViewById(R.id.recyclerRoutes);
 
         realm = Realm.getDefaultInstance();
-        realmResults = realm.where(Route.class).findAll();
+        realmResults = realm.where(Route.class).notEqualTo("freeSeats", 0).findAll();
 
         this.recyclerRoutes.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false));
         RoutesAdapter routesAdapter = new RoutesAdapter(realmResults, (ruta, position) -> {
