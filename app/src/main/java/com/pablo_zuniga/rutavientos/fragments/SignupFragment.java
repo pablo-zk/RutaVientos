@@ -19,6 +19,7 @@ import java.util.ArrayList;
 
 import io.realm.Realm;
 import io.realm.RealmList;
+import io.realm.RealmResults;
 
 public class SignupFragment extends Fragment {
 
@@ -68,10 +69,20 @@ public class SignupFragment extends Fragment {
 
         btnLog.setOnClickListener(view1 -> {
             if (name.getTranslationX() == 0){
+                if(name.getText().toString().equals("")){
+                    name.setError("Name is required");
+                    return;
+                }else if(lasname.getText().toString().equals("")){
+                    lasname.setError("Last name is required");
+                    return;
+                }else if(phone.getText().toString().equals("") || phone.getText().toString().length() != 9){
+                    phone.setError("Phone is required");
+                    return;
+                }
                 try {
                     numeroTelefono = Integer.parseInt(phone.getText().toString().trim());
                 } catch (NumberFormatException e){
-                    phone.setError("Telefono incorrecto");
+                    phone.setError("Incorrect phone number");
                     return;
                 }
                 name.animate().translationX(-1800).alpha(0).setDuration(900).setStartDelay(200).start();
@@ -90,6 +101,14 @@ public class SignupFragment extends Fragment {
                     passwd.setError("Password is required");
                     return;
                 }
+
+                realm = Realm.getDefaultInstance();
+                RealmResults<User> users = realm.where(User.class).equalTo("username",username.getText().toString()).findAll();
+                if(users.size() != 0){
+                    username.setError("Username already exists");
+                    return;
+                }
+
 
                 listaRutas = new RealmList<Integer>();
                 realm = Realm.getDefaultInstance();
