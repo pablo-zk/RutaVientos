@@ -1,6 +1,7 @@
 package com.pablo_zuniga.rutavientos.fragments;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,10 +18,12 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TimePicker;
 
 import com.pablo_zuniga.rutavientos.R;
 import com.pablo_zuniga.rutavientos.activities.MapsActivity;
 import com.pablo_zuniga.rutavientos.dialog.DatePickerFragment;
+import com.pablo_zuniga.rutavientos.dialog.TimePickerFragment;
 import com.pablo_zuniga.rutavientos.models.Route;
 import com.pablo_zuniga.rutavientos.models.User;
 
@@ -38,6 +41,7 @@ public class CreateRoutesFragment extends Fragment {
     Realm realm;
     RealmResults<User> realmUser;
     EditText etPlannedDate;
+    EditText etPlannedTime;
     public CreateRoutesFragment() {}
 
     @Override
@@ -50,6 +54,7 @@ public class CreateRoutesFragment extends Fragment {
         btnChange = (ImageButton) view.findViewById(R.id.btnChange);
         create = (Button) view.findViewById(R.id.btnCreate);
         etPlannedDate = (EditText) view.findViewById(R.id.etPlannedDate);
+        etPlannedTime = (EditText) view.findViewById(R.id.etPlannedTime);
 
         txtOrigen.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,6 +86,16 @@ public class CreateRoutesFragment extends Fragment {
                 switch (view.getId()){
                     case R.id.etPlannedDate:
                         showDatePickerDialog();
+                        break;
+                }
+            }
+        });
+        etPlannedTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                switch (view.getId()){
+                    case R.id.etPlannedTime:
+                        showTimePickerDialog();
                         break;
                 }
             }
@@ -139,5 +154,16 @@ public class CreateRoutesFragment extends Fragment {
         });
 
         newFragment.show(getActivity().getSupportFragmentManager(), "datePicker");
+    }
+    private void showTimePickerDialog() {
+        TimePickerFragment newFragment = TimePickerFragment.newInstance(new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                final String selectedDate = hourOfDay + ":" + minute;
+                etPlannedTime.setText(selectedDate);
+            }
+        });
+
+        newFragment.show(getActivity().getSupportFragmentManager(), "timePicker");
     }
 }
