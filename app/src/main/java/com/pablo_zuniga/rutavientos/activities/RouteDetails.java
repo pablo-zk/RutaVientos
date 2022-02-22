@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -68,6 +69,7 @@ public class RouteDetails extends AppCompatActivity {
             userOfRoute = realm.where(User.class).equalTo("id",routeActual.getDriver()).findFirst();
             userCurrent = realm.where(User.class).equalTo("isActive",true).findFirst();
        }
+        txtContacto = (TextView) findViewById(R.id.txtContact);
         btnApuntarse = (Button) findViewById(R.id.btnApuntarse);
         if (userCurrent.getId() == userOfRoute.getId()){
             btnApuntarse.setText("Eliminar");
@@ -76,8 +78,11 @@ public class RouteDetails extends AppCompatActivity {
             //TODO partir de aquí poner los datos en los txt o lo que haya en la view
             if(userCurrent.getRoutesId().contains(routeActual.getId())){
                 btnApuntarse.setText("Desapuntarse");
+                txtContacto.setText("Contacta con " + userOfRoute.getUsername().toString());
+                txtContacto.setEnabled(true);
             }else{
                 btnApuntarse.setText("Apuntarse");
+                txtContacto.setEnabled(false);
             }
         }
 
@@ -85,16 +90,16 @@ public class RouteDetails extends AppCompatActivity {
         btnApuntarse.setOnClickListener(view -> {
             if (btnApuntarse.getText().toString() == "Eliminar"){
                 showInfoAlert("¿Seguro que quieres eliminar la ruta?");
-
             } else {
+                String origen = routeActual.getOrigin().contains("Cuatrovientos") ? routeActual.getOrigin() : routeActual.getOrigin().split(",")[0];
+                String destino = routeActual.getDestiny().contains("Cuatrovientos") ? routeActual.getDestiny() : routeActual.getDestiny().split(",")[0];
                 if(userCurrent.getRoutesId().contains(routeActual.getId())){
-                    showInfoAlert("¿Seguro que quieres desapuntarte de la ruta " + routeActual.getOrigin() + "-" + routeActual.getDestiny() + " a las " + routeActual.getDateHour() + "?");
+                    showInfoAlert("¿Seguro que quieres desapuntarte de la ruta " + origen + "-" + destino + " a las " + routeActual.getDateHour().getHours() + ":" + routeActual.getDateHour().getMinutes() + "?");
                 }else{
                     if(routeActual.getFreeSeats() == 0){
                         Toast.makeText(getBaseContext(),"ERROR: No quedan plazas disponibles", Toast.LENGTH_SHORT).show();
                     }else{
-                        showInfoAlert("¿Seguro que quieres apuntarte de la ruta " + routeActual.getOrigin() + "-" + routeActual.getDestiny() + " a las " + routeActual.getDateHour() + "?");
-
+                        showInfoAlert("¿Seguro que quieres apuntarte de la ruta " + origen + "-" + destino + " a las " + routeActual.getDateHour().getHours() + ":" + routeActual.getDateHour().getMinutes() + "?");
                     }
                 }
             }
@@ -102,13 +107,17 @@ public class RouteDetails extends AppCompatActivity {
 
         });
 
+        txtContacto.setOnClickListener(view -> {
+            if (txtContacto.isClickable()){
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+String.valueOf(userOfRoute.getTelefono())));
+                startActivity(intent);
+            }
+        });
+
         //TODO Mostrar datos
 
         this.txtName = (TextView) findViewById(R.id.txtName);
-        this.txtContacto = (TextView) findViewById(R.id.txtContact);
-
         txtName.setText(userOfRoute.getUsername().toString());
-        txtContacto.setText("Contacta con " + userOfRoute.getUsername().toString());
 
         this.txtOrigen = (TextView) findViewById(R.id.idOrigen);
         this.txtOrigenC = (TextView) findViewById(R.id.idOrigenC);
