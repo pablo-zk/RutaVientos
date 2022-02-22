@@ -66,7 +66,7 @@ public class RoutesAdapter extends RecyclerView.Adapter<RoutesAdapter.RoutesData
 
             Realm realm = Realm.getDefaultInstance();
             User user = realm.where(User.class).equalTo("id",ruta.getDriver()).findFirst();
-            //this.driver.setText( String.format("Publicado por %s", user.getNombre()));
+            this.driver.setText( String.format("Publicado por %s", user.getUsername()));
 
             itemView.setOnClickListener(view -> itemListener.onItemClick(ruta,getAdapterPosition()));
         }
