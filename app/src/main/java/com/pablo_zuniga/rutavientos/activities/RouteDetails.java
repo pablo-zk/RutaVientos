@@ -11,12 +11,15 @@ import android.provider.ContactsContract;
 import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pablo_zuniga.rutavientos.R;
 import com.pablo_zuniga.rutavientos.models.Route;
 import com.pablo_zuniga.rutavientos.models.User;
+
+import java.util.ArrayList;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -29,6 +32,13 @@ public class RouteDetails extends AppCompatActivity {
     User userCurrent;
     Button btnApuntarse;
 
+    TextView txtName;
+    TextView txtContacto;
+
+    TextView txtOrigen;
+    TextView txtOrigenC;
+    TextView txtDestino;
+    TextView txtDestinoC;
 
     @SuppressLint("ResourceType")
     @Override
@@ -78,6 +88,33 @@ public class RouteDetails extends AppCompatActivity {
 
 
         });
+
+        //TODO Mostrar datos
+
+        this.txtName = (TextView) findViewById(R.id.txtName);
+        this.txtContacto = (TextView) findViewById(R.id.txtContact);
+
+        txtName.setText(userOfRoute.getUsername().toString());
+        txtContacto.setText("Contacta con " + userOfRoute.getUsername().toString());
+
+        this.txtOrigen = (TextView) findViewById(R.id.idOrigen);
+        this.txtOrigenC = (TextView) findViewById(R.id.idOrigenC);
+        this.txtDestino = (TextView) findViewById(R.id.idDestino);
+        this.txtDestinoC = (TextView) findViewById(R.id.idDestinoC);
+
+        if (routeActual.getOrigin().contains("Cuatrovientos")){
+            String[] destino = routeActual.getDestiny().split(",");
+            this.txtDestinoC.setText(destino[0].toString());
+            this.txtDestino.setText(destino[2].toString());
+            this.txtOrigenC.setText(routeActual.getOrigin().toString());
+            this.txtOrigen.setText(routeActual.getOrigin().toString());
+        } else {
+            String[] origen = routeActual.getOrigin().split(",");
+            this.txtOrigenC.setText(origen[0].toString());
+            this.txtOrigen.setText(origen[2].toString());
+            this.txtDestinoC.setText(routeActual.getDestiny().toString());
+            this.txtDestino.setText(routeActual.getDestiny().toString());
+        }
 
     }
 
