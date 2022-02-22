@@ -51,17 +51,14 @@ public class RouteDetails extends AppCompatActivity {
         }else{
             btnApuntarse.setText("Apuntarse");
         }
-        btnApuntarse.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(userCurrent.getRoutesId().contains(routeActual.getId())){
-                    showInfoAlert("¿Seguro que quieres desapuntarte de la ruta " + routeActual.getOrigin() + "-" + routeActual.getDestiny() + " a las " + routeActual.getDateHour() + "?");
+        btnApuntarse.setOnClickListener(view -> {
+            if(userCurrent.getRoutesId().contains(routeActual.getId())){
+                showInfoAlert("¿Seguro que quieres desapuntarte de la ruta " + routeActual.getOrigin() + "-" + routeActual.getDestiny() + " a las " + routeActual.getDateHour() + "?");
+            }else{
+                if(routeActual.getFreeSeats() == 0){
+                    Toast.makeText(getBaseContext(),"ERROR: No quedan plazas disponibles", Toast.LENGTH_SHORT).show();
                 }else{
-                    if(routeActual.getFreeSeats() == 0){
-                        Toast.makeText(getBaseContext(),"ERROR: No quedan plazas disponibles", Toast.LENGTH_SHORT).show();
-                    }else{
-                        showInfoAlert("¿Seguro que quieres apuntarte de la ruta " + routeActual.getOrigin() + "-" + routeActual.getDestiny() + " a las " + routeActual.getDateHour() + "?");
-                    }
+                    showInfoAlert("¿Seguro que quieres apuntarte de la ruta " + routeActual.getOrigin() + "-" + routeActual.getDestiny() + " a las " + routeActual.getDateHour() + "?");
                 }
             }
         });
@@ -72,25 +69,22 @@ public class RouteDetails extends AppCompatActivity {
         new AlertDialog.Builder(this)
                 .setTitle("CONFIRMACIÓN")
                 .setMessage(message)
-                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        realm.beginTransaction();
-                        if(message.contains("desapuntarte")){
-                            userCurrent.getRoutesId().remove(userCurrent.getRoutesId().indexOf(routeActual.getId()));
-                            routeActual.setFreeSeats(routeActual.getFreeSeats() + 1);
-                            btnApuntarse.setText("Apuntarse");
-                        }else{
-                            userCurrent.getRoutesId().add(routeActual.getId());
-                            routeActual.setFreeSeats(routeActual.getFreeSeats() - 1);
-                            btnApuntarse.setText("Desapuntarse");
-                        }
-                        realm.copyToRealmOrUpdate(userCurrent);
-                        realm.commitTransaction();
-                        realm.beginTransaction();
-                        realm.copyToRealmOrUpdate(routeActual);
-                        realm.commitTransaction();
+                .setPositiveButton("Ok", (dialogInterface, i) -> {
+                    realm.beginTransaction();
+                    if(message.contains("desapuntarte")){
+                        userCurrent.getRoutesId().remove(userCurrent.getRoutesId().indexOf(routeActual.getId()));
+                        routeActual.setFreeSeats(routeActual.getFreeSeats() + 1);
+                        btnApuntarse.setText("Apuntarse");
+                    }else{
+                        userCurrent.getRoutesId().add(routeActual.getId());
+                        routeActual.setFreeSeats(routeActual.getFreeSeats() - 1);
+                        btnApuntarse.setText("Desapuntarse");
                     }
+                    realm.copyToRealmOrUpdate(userCurrent);
+                    realm.commitTransaction();
+                    realm.beginTransaction();
+                    realm.copyToRealmOrUpdate(routeActual);
+                    realm.commitTransaction();
                 })
                 .setNegativeButton("Cancel",null)
                 .show();

@@ -51,81 +51,13 @@ public class CreateRoutesFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_create_routes, container, false);
 
         create = (Button) view.findViewById(R.id.btnCreate);
-        create.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(), MapsActivity.class);
-                //Hacer aqui la comprobacion de si ha elegido cuatrovientos como destino u origen
-                intent.putExtra("destino","Cuatrovientos");
-                intent.putExtra("origen","");
-                startActivity(intent);
-            }
+        create.setOnClickListener(view1 -> {
+            Intent intent = new Intent(getContext(), MapsActivity.class);
+            //Hacer aqui la comprobacion de si ha elegido cuatrovientos como destino u origen
+            intent.putExtra("destino","Cuatrovientos");
+            intent.putExtra("origen","");
+            startActivity(intent);
         });
-//        checkGPS();
-//        txtDestino = (EditText) view.findViewById(R.id.txtDestino2);
-//        txtOrigen = (EditText) view.findViewById(R.id.txtOrigen);
-//        btnChange = (ImageButton) view.findViewById(R.id.btnChange);
-//        create = (Button) view.findViewById(R.id.btnCreate);
-//        etPlannedDate = (EditText) view.findViewById(R.id.etPlannedDate);
-//        etPlannedTime = (EditText) view.findViewById(R.id.etPlannedTime);
-//
-//        txtOrigen.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(getContext(), MapsActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-//
-//        //txtDestino.setInputType(InputType.TYPE_NULL);
-//        btnChange.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if (txtDestino.isEnabled()){
-//                    txtDestino.setEnabled(false);
-//                    txtOrigen.setEnabled(true);
-//                }else{
-//                    txtDestino.setEnabled(true);
-//                    txtOrigen.setEnabled(false);
-//                }
-//                String textoDestino = String.valueOf(txtDestino.getText());
-//                txtDestino.setText(txtOrigen.getText());
-//                txtOrigen.setText(textoDestino);
-//            }
-//        });
-//        etPlannedDate.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                switch (view.getId()){
-//                    case R.id.etPlannedDate:
-//                        showDatePickerDialog();
-//                        break;
-//                }
-//            }
-//        });
-//        etPlannedTime.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                switch (view.getId()){
-//                    case R.id.etPlannedTime:
-//                        showTimePickerDialog();
-//                        break;
-//                }
-//            }
-//        });
-//        create.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                realm = Realm.getDefaultInstance();
-//                realmUser = realm.where(User.class).equalTo("isActive",true).findAll();
-//
-//                Route route = new Route(txtOrigen.getText().toString(), txtDestino.getText().toString(), 3, new Date(2022, 2, 11, 10, 30),realmUser.get(0).getId());
-//                realm.beginTransaction();
-//                realm.copyToRealm(route);
-//                realm.commitTransaction();
-//            }
-//        });
-
 
         return view;
     }
@@ -138,7 +70,6 @@ public class CreateRoutesFragment extends Fragment {
             }
         } catch (Settings.SettingNotFoundException e) {
             e.printStackTrace();
-
         }
     }
 
@@ -146,12 +77,9 @@ public class CreateRoutesFragment extends Fragment {
         new AlertDialog.Builder(getContext())
                 .setTitle("GPS Alert")
                 .setMessage("You don´t have the GPS signal enabled, Would you like to enable the GPS signal now?")
-                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                        startActivity(intent);
-                    }
+                .setPositiveButton("Ok", (dialogInterface, i) -> {
+                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    startActivity(intent);
                 })
                 .setNegativeButton("Cancel",null)
                 .show();

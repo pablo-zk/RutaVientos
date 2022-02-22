@@ -144,12 +144,7 @@ public class  UserFragment extends Fragment {
 
     public void showRoutes(View view){
         recyclerRutas.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false));
-        RoutesAdapter routesAdapter = new RoutesAdapter(realmRutas, new RoutesAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(Route ruta, int position) {
-                callback.sendData(ruta);
-            }
-        });
+        RoutesAdapter routesAdapter = new RoutesAdapter(realmRutas, (ruta, position) -> callback.sendData(ruta));
         recyclerRutas.setAdapter(routesAdapter);
     }
     public interface DataListener {

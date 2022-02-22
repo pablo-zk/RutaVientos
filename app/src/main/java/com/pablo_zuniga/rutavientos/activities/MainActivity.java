@@ -64,22 +64,19 @@ public class MainActivity extends AppCompatActivity implements RoutesFragment.Da
         logout = (ImageView) findViewById(R.id.imgLogOut);
 
 
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                realm.beginTransaction();
-                realmUser = realm.where(User.class).findAll();
-                for (User user : realmUser) {
-                    if (user.isActive()){
-                        userActive = user;
-                    }
+        logout.setOnClickListener(view -> {
+            realm.beginTransaction();
+            realmUser = realm.where(User.class).findAll();
+            for (User user : realmUser) {
+                if (user.isActive()){
+                    userActive = user;
                 }
-                userActive.setActive(false);
-                realm.copyToRealmOrUpdate(userActive);
-                realm.commitTransaction();
-
-                goLog();
             }
+            userActive.setActive(false);
+            realm.copyToRealmOrUpdate(userActive);
+            realm.commitTransaction();
+
+            goLog();
         });
 
 

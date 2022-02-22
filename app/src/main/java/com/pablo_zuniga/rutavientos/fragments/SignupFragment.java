@@ -66,43 +66,40 @@ public class SignupFragment extends Fragment {
         username.setAlpha(v);
         passwd.setAlpha(v);
 
-        btnLog.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (name.getTranslationX() == 0){
-                    try {
-                        numeroTelefono = Integer.parseInt(phone.getText().toString().trim());
-                    } catch (NumberFormatException e){
-                        phone.setError("Telefono incorrecto");
-                        return;
-                    }
-                    name.animate().translationX(-1800).alpha(0).setDuration(900).setStartDelay(200).start();
-                    lasname.animate().translationX(-1800).alpha(0).setDuration(900).setStartDelay(250).start();
-                    phone.animate().translationX(-1800).alpha(0).setDuration(900).setStartDelay(300).start();
+        btnLog.setOnClickListener(view1 -> {
+            if (name.getTranslationX() == 0){
+                try {
+                    numeroTelefono = Integer.parseInt(phone.getText().toString().trim());
+                } catch (NumberFormatException e){
+                    phone.setError("Telefono incorrecto");
+                    return;
+                }
+                name.animate().translationX(-1800).alpha(0).setDuration(900).setStartDelay(200).start();
+                lasname.animate().translationX(-1800).alpha(0).setDuration(900).setStartDelay(250).start();
+                phone.animate().translationX(-1800).alpha(0).setDuration(900).setStartDelay(300).start();
 
-                    username.animate().translationX(0).alpha(1).setDuration(700).setStartDelay(350).start();
-                    passwd.animate().translationX(0).alpha(1).setDuration(700).setStartDelay(400).start();
-                    //Añadido
-                    btnLog.setText("SIGNUP");
-                } else {
-                    if(username.getText().toString().equals("")){
-                        username.setError("Username is required");
-                        return;
-                    }else if(passwd.getText().toString().equals("")){
-                        passwd.setError("Password is required");
-                        return;
-                    }
-
-                    listaRutas = new RealmList<Integer>();
-                    realm = Realm.getDefaultInstance();
-                    user = new User(username.getText().toString(), passwd.getText().toString(), name.getText().toString(), lasname.getText().toString(),numeroTelefono,1,1,listaRutas, true);
-                    realm.beginTransaction();
-                    realm.copyToRealm(user);
-                    realm.commitTransaction();
-                    callback.sendData(user);
+                username.animate().translationX(0).alpha(1).setDuration(700).setStartDelay(350).start();
+                passwd.animate().translationX(0).alpha(1).setDuration(700).setStartDelay(400).start();
+                //Añadido
+                btnLog.setText("SIGNUP");
+            } else {
+                if(username.getText().toString().equals("")){
+                    username.setError("Username is required");
+                    return;
+                }else if(passwd.getText().toString().equals("")){
+                    passwd.setError("Password is required");
+                    return;
                 }
 
+                listaRutas = new RealmList<Integer>();
+                realm = Realm.getDefaultInstance();
+                user = new User(username.getText().toString(), passwd.getText().toString(), name.getText().toString(), lasname.getText().toString(),numeroTelefono,1,1,listaRutas, true);
+                realm.beginTransaction();
+                realm.copyToRealm(user);
+                realm.commitTransaction();
+                callback.sendData(user);
             }
+
         });
 
         return view;

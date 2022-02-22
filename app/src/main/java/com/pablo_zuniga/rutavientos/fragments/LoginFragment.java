@@ -71,20 +71,17 @@ public class LoginFragment extends Fragment {
         passwd.animate().translationX(0).alpha(1).setDuration(900).setStartDelay(550).start();
         btnLog.animate().translationX(0).alpha(1).setDuration(900).setStartDelay(650).start();
 
-        btnLog.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                realm = Realm.getDefaultInstance();
-                realUsers = realm.where(User.class).equalTo("username", user.getText().toString()).equalTo("password", passwd.getText().toString()).findAll();
-                if (realUsers.size() != 0){
-                    realm.beginTransaction();
-                    realUsers.get(0).setActive(true);
-                    realm.copyToRealmOrUpdate(realUsers.get(0));
-                    realm.commitTransaction();
-                    callback.sendData(realUsers.get(0));
-                }else{
-                    user.setError("Usuario incorrecto");
-                }
+        btnLog.setOnClickListener(view1 -> {
+            realm = Realm.getDefaultInstance();
+            realUsers = realm.where(User.class).equalTo("username", user.getText().toString()).equalTo("password", passwd.getText().toString()).findAll();
+            if (realUsers.size() != 0){
+                realm.beginTransaction();
+                realUsers.get(0).setActive(true);
+                realm.copyToRealmOrUpdate(realUsers.get(0));
+                realm.commitTransaction();
+                callback.sendData(realUsers.get(0));
+            }else{
+                user.setError("Usuario incorrecto");
             }
         });
 
