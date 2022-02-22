@@ -96,15 +96,13 @@ public class MainActivity extends AppCompatActivity implements RoutesFragment.Da
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-//                if(tab.getPosition() == 1){
-//                    Intent intent = new Intent(MainActivity.this,MapsActivity.class);
-//                    startActivity(intent);
-//                }else{
-//                    int position = tab.getPosition();
-//                    viewPager.setCurrentItem(position);
-//                }
-                int position = tab.getPosition();
-                viewPager.setCurrentItem(position);
+                if(tab.getPosition() == 1){
+                   Intent intent = new Intent(MainActivity.this,MapsActivity.class);
+                    startActivity(intent);
+                }else{
+                    int position = tab.getPosition();
+                    viewPager.setCurrentItem(position);
+                }
             }
 
             @Override
