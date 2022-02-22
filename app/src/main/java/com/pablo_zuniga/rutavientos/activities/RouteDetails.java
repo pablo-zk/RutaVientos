@@ -1,11 +1,13 @@
 package com.pablo_zuniga.rutavientos.activities;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.provider.Settings;
@@ -16,10 +18,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pablo_zuniga.rutavientos.R;
+import com.pablo_zuniga.rutavientos.fragments.CreateRoutesFragment;
+import com.pablo_zuniga.rutavientos.fragments.RoutesFragment;
+import com.pablo_zuniga.rutavientos.fragments.UserFragment;
+import com.pablo_zuniga.rutavientos.fragments.ViajesFragment;
 import com.pablo_zuniga.rutavientos.models.Route;
 import com.pablo_zuniga.rutavientos.models.User;
 
+import java.time.DayOfWeek;
+import java.time.Month;
+import java.time.format.TextStyle;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -40,6 +50,9 @@ public class RouteDetails extends AppCompatActivity {
     TextView txtDestino;
     TextView txtDestinoC;
 
+    TextView txtDate;
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @SuppressLint("ResourceType")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,6 +129,11 @@ public class RouteDetails extends AppCompatActivity {
             this.txtDestino.setText(routeActual.getDestiny().toString());
         }
 
+        this.txtDate = (TextView) findViewById(R.id.txtDate);
+        String date = getDay(routeActual.getDateHour().getDay()) + " " + String.valueOf(routeActual.getDateHour().getDay()) + " " + getMonth(routeActual.getDateHour().getMonth());
+        String time = String.valueOf(routeActual.getDateHour().getHours()) + ":" + String.valueOf(routeActual.getDateHour().getMinutes());
+        this.txtDate.setText(date+ " / " + time);
+
     }
 
     private void showInfoAlert(String message){
@@ -153,5 +171,23 @@ public class RouteDetails extends AppCompatActivity {
                 .setNegativeButton("Cancel",null)
                 .show();
 
+    }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private String getMonth(int mes){
+        Locale locale = new Locale("es", "ES");
+        Month mMonth=Month.of(mes);
+        String monthName=mMonth.getDisplayName(TextStyle.FULL,locale);
+        return monthName;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private String getDay(int day){
+
+        Locale locale = new Locale("es", "ES");
+        DayOfWeek dDay = DayOfWeek.of(day);
+        String dayName=dDay.getDisplayName(TextStyle.FULL,locale);
+        return dayName;
     }
 }

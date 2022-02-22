@@ -61,7 +61,7 @@ public class RoutesAdapter extends RecyclerView.Adapter<RoutesAdapter.RoutesData
         public void assignData(Route ruta, OnItemClickListener itemListener){
 
             this.trip.setText(String.format("%s - %s", ruta.getOrigin(), ruta.getDestiny()));
-            this.hour.setText(ruta.getDateHour());
+            this.hour.setText(String.valueOf(ruta.getDateHour().getHours()) + ":" + String.valueOf(ruta.getDateHour().getMinutes()));
             this.seats.setText(String.format(Locale.getDefault(), "%d plazas", ruta.getFreeSeats()));
 
             Realm realm = Realm.getDefaultInstance();

@@ -54,7 +54,7 @@ public class Route extends RealmObject {
         this.freeSeats = freeSeats;
     }
 
-    public String getDateHour() { return String.valueOf(dateHour.getHours()) + ":" + String.valueOf(dateHour.getMinutes()); }
+    public Date getDateHour() { return dateHour;}
 
     public void setDateHour(Date dateHour) { this.dateHour = dateHour; }
 
