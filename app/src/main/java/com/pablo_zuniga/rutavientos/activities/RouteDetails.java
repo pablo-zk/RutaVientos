@@ -185,9 +185,14 @@ public class RouteDetails extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.O)
     private String getDay(int day){
 
-        if (day == 1){
+        if (day == 0){
+            day = 6;
+        } else if (day == 1){
             day = 7;
+        } else {
+            day -= 1;
         }
+
         Locale locale = new Locale("es", "ES");
         DayOfWeek dDay = DayOfWeek.of(day);
         String dayName=dDay.getDisplayName(TextStyle.FULL,locale);
