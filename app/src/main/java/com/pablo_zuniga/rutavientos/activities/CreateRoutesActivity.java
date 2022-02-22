@@ -91,6 +91,8 @@ public class CreateRoutesActivity extends AppCompatActivity {
                 realm.beginTransaction();
                 realm.copyToRealm(route);
                 realm.commitTransaction();
+                Intent intent = new Intent(CreateRoutesActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
 
