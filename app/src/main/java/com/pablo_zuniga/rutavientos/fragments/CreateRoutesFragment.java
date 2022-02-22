@@ -21,6 +21,7 @@ import android.widget.ImageButton;
 import android.widget.TimePicker;
 
 import com.pablo_zuniga.rutavientos.R;
+import com.pablo_zuniga.rutavientos.activities.CreateRoutesActivity;
 import com.pablo_zuniga.rutavientos.activities.MapsActivity;
 import com.pablo_zuniga.rutavientos.dialog.DatePickerFragment;
 import com.pablo_zuniga.rutavientos.dialog.TimePickerFragment;
@@ -48,70 +49,82 @@ public class CreateRoutesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_create_routes, container, false);
-        checkGPS();
-        txtDestino = (EditText) view.findViewById(R.id.txtDestino2);
-        txtOrigen = (EditText) view.findViewById(R.id.txtOrigen);
-        btnChange = (ImageButton) view.findViewById(R.id.btnChange);
-        create = (Button) view.findViewById(R.id.btnCreate);
-        etPlannedDate = (EditText) view.findViewById(R.id.etPlannedDate);
-        etPlannedTime = (EditText) view.findViewById(R.id.etPlannedTime);
 
-        txtOrigen.setOnClickListener(new View.OnClickListener() {
+        create = (Button) view.findViewById(R.id.btnCreate);
+        create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), MapsActivity.class);
+                //Hacer aqui la comprobacion de si ha elegido cuatrovientos como destino u origen
+                intent.putExtra("destino","Cuatrovientos");
+                intent.putExtra("origen","");
                 startActivity(intent);
             }
         });
-
-        //txtDestino.setInputType(InputType.TYPE_NULL);
-        btnChange.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (txtDestino.isEnabled()){
-                    txtDestino.setEnabled(false);
-                    txtOrigen.setEnabled(true);
-                }else{
-                    txtDestino.setEnabled(true);
-                    txtOrigen.setEnabled(false);
-                }
-                String textoDestino = String.valueOf(txtDestino.getText());
-                txtDestino.setText(txtOrigen.getText());
-                txtOrigen.setText(textoDestino);
-            }
-        });
-        etPlannedDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                switch (view.getId()){
-                    case R.id.etPlannedDate:
-                        showDatePickerDialog();
-                        break;
-                }
-            }
-        });
-        etPlannedTime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                switch (view.getId()){
-                    case R.id.etPlannedTime:
-                        showTimePickerDialog();
-                        break;
-                }
-            }
-        });
-        create.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                realm = Realm.getDefaultInstance();
-                realmUser = realm.where(User.class).equalTo("isActive",true).findAll();
-
-                Route route = new Route(txtOrigen.getText().toString(), txtDestino.getText().toString(), 3, new Date(2022, 2, 11, 10, 30),realmUser.get(0).getId());
-                realm.beginTransaction();
-                realm.copyToRealm(route);
-                realm.commitTransaction();
-            }
-        });
+//        checkGPS();
+//        txtDestino = (EditText) view.findViewById(R.id.txtDestino2);
+//        txtOrigen = (EditText) view.findViewById(R.id.txtOrigen);
+//        btnChange = (ImageButton) view.findViewById(R.id.btnChange);
+//        create = (Button) view.findViewById(R.id.btnCreate);
+//        etPlannedDate = (EditText) view.findViewById(R.id.etPlannedDate);
+//        etPlannedTime = (EditText) view.findViewById(R.id.etPlannedTime);
+//
+//        txtOrigen.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getContext(), MapsActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+//
+//        //txtDestino.setInputType(InputType.TYPE_NULL);
+//        btnChange.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if (txtDestino.isEnabled()){
+//                    txtDestino.setEnabled(false);
+//                    txtOrigen.setEnabled(true);
+//                }else{
+//                    txtDestino.setEnabled(true);
+//                    txtOrigen.setEnabled(false);
+//                }
+//                String textoDestino = String.valueOf(txtDestino.getText());
+//                txtDestino.setText(txtOrigen.getText());
+//                txtOrigen.setText(textoDestino);
+//            }
+//        });
+//        etPlannedDate.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                switch (view.getId()){
+//                    case R.id.etPlannedDate:
+//                        showDatePickerDialog();
+//                        break;
+//                }
+//            }
+//        });
+//        etPlannedTime.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                switch (view.getId()){
+//                    case R.id.etPlannedTime:
+//                        showTimePickerDialog();
+//                        break;
+//                }
+//            }
+//        });
+//        create.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                realm = Realm.getDefaultInstance();
+//                realmUser = realm.where(User.class).equalTo("isActive",true).findAll();
+//
+//                Route route = new Route(txtOrigen.getText().toString(), txtDestino.getText().toString(), 3, new Date(2022, 2, 11, 10, 30),realmUser.get(0).getId());
+//                realm.beginTransaction();
+//                realm.copyToRealm(route);
+//                realm.commitTransaction();
+//            }
+//        });
 
 
         return view;
@@ -142,28 +155,5 @@ public class CreateRoutesFragment extends Fragment {
                 })
                 .setNegativeButton("Cancel",null)
                 .show();
-    }
-    private void showDatePickerDialog() {
-        DatePickerFragment newFragment = DatePickerFragment.newInstance(new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                // +1 because January is zero
-                final String selectedDate = day + " / " + (month+1) + " / " + year;
-                etPlannedDate.setText(selectedDate);
-            }
-        });
-
-        newFragment.show(getActivity().getSupportFragmentManager(), "datePicker");
-    }
-    private void showTimePickerDialog() {
-        TimePickerFragment newFragment = TimePickerFragment.newInstance(new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                final String selectedDate = hourOfDay + ":" + minute;
-                etPlannedTime.setText(selectedDate);
-            }
-        });
-
-        newFragment.show(getActivity().getSupportFragmentManager(), "timePicker");
     }
 }
