@@ -45,9 +45,7 @@ public class  UserFragment extends Fragment {
     RealmResults<Route> realmRutas;
     ArrayList<Route> arrayRoute;
     RealmResults<Route> realmRutasA;
-    public UserFragment() {
-        // Required empty public constructor
-    }
+    public UserFragment() {}
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -74,7 +72,6 @@ public class  UserFragment extends Fragment {
         txtMember = (TextView) view.findViewById(R.id.txtMember);
         imgPerfil = (ImageView) view.findViewById(R.id.imgProfile);
         recyclerRutas = (RecyclerView) view.findViewById(R.id.recylclerRutas);
-        switchRoutes = (Switch) view.findViewById(R.id.switchRutasUser);
 
         realm = Realm.getDefaultInstance();
         //realmUser = realm.where(User.class).equalTo("isActive",Boolean.TRUE).findAll();
@@ -84,7 +81,6 @@ public class  UserFragment extends Fragment {
                 userActive = user;
             }
         }
-
 
         String aux = userActive.getNombre() + " " + userActive.getApellido();
         txtNombreCompleto.setText(aux);
@@ -96,19 +92,16 @@ public class  UserFragment extends Fragment {
         aux = "Reducidos " + userActive.getRoutesId().size()*10 + " puntos de CO2 en " + userActive.getRoutesId().size()+" viajes";
         txtCo2.setText(aux);
 
-        //txtTelefono.setText(userActive.getTelefono());
+        txtTelefono.setText(String.valueOf(userActive.getTelefono()));
 
-        if(switchRoutes.isChecked()){
-            //Obtengo todas las rutas del usuario
-            realmRutas = realm.where(Route.class).equalTo("driver",userActive.getId()).findAll();
-            showRoutes(view);
-        }else{
-            //Obtener todas las rutas NO creadas por el usuario y buscar cuales coinciden con su getIdRoutes().
-            realmRutas = realm.where(Route.class).notEqualTo("driver",userActive.getId()).findAll();
-            showRoutes(view);
-        }
+        //Obtengo todas las rutas del usuario
+        realmRutas = realm.where(Route.class).equalTo("driver",userActive.getId()).findAll();
+        recyclerRutas.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false));
+        RoutesAdapter routesAdapter = new RoutesAdapter(realmRutas, (ruta, position) -> {
+            callback.sendData(ruta);
+        });
+        recyclerRutas.setAdapter(routesAdapter);
 
-        showRoutes(view);
         //Calcular en base a las rutas que ha creado el nivel de miembro: Member/Pro/Expert
         if(realmRutas.size() < 5){
             txtMember.setText("RutaVientos member");
@@ -118,35 +111,9 @@ public class  UserFragment extends Fragment {
             txtMember.setText("RutaVientos Expert member");
         }
 
-        //TODO Añadido nuevo, la cosa sería pasar al recycler adpater una lista u otra
-        switchRoutes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                RealmResults<Route> routesUser;
-                if(switchRoutes.isChecked()){
-                    //Obtengo todas las rutas del usuario
-                    realmRutas = realm.where(Route.class).equalTo("driver",userActive.getId()).findAll();
-                    showRoutes(view);
-                }else{
-                    //Obtener todas las rutas NO creadas por el usuario y buscar cuales coinciden con su getIdRoutes().
-                    realmRutas = realm.where(Route.class).notEqualTo("driver",userActive.getId()).findAll();
-                    for ( Route r: realmRutas ) {
-
-                    }
-                    showRoutes(view);
-                }
-            }
-        });
-
-
         return view;
     }
 
-    public void showRoutes(View view){
-        recyclerRutas.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false));
-        RoutesAdapter routesAdapter = new RoutesAdapter(realmRutas, (ruta, position) -> callback.sendData(ruta));
-        recyclerRutas.setAdapter(routesAdapter);
-    }
     public interface DataListener {
         public void sendData(Route route);
     }

@@ -125,8 +125,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/switchRutasUser"
-        app:layout_constraintVertical_bias="0.158" />
+        app:layout_constraintTop_toBottomOf="@+id/divider4"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/txtFechaCreacion"
@@ -139,16 +139,5 @@
         app:layout_constraintHorizontal_bias="0.007"
         app:layout_constraintStart_toStartOf="@+id/txtCompleteName"
         app:layout_constraintTop_toBottomOf="@+id/txtCompleteName" />
-
-    <Switch
-        android:id="@+id/switchRutasUser"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="34dp"
-        android:checked="true"
-        android:text="Tus rutas"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
