@@ -139,7 +139,7 @@ public class RouteDetails extends AppCompatActivity {
         }
 
         this.txtDate = (TextView) findViewById(R.id.txtDate);
-        String date = getDay(routeActual.getDateHour().getDay()) + " " + String.valueOf(routeActual.getDateHour().getDay()) + " " + getMonth(routeActual.getDateHour().getMonth());
+        String date = getDay(routeActual.getDateHour().getDay()) + " " + String.valueOf(routeActual.getDateHour().getDate()) + " " + getMonth(routeActual.getDateHour().getMonth());
         String time = String.valueOf(routeActual.getDateHour().getHours()) + ":" + String.valueOf(routeActual.getDateHour().getMinutes());
         this.txtDate.setText(date+ " / " + time);
 
