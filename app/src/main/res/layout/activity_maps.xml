@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:map="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,35 +7,46 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/txtTitleMap"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="TextView"
-        android:textAlignment="center"
-        android:textSize="22sp"
-        android:textStyle="bold" />
-
     <fragment
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         tools:context=".activities.MapsActivity" />
 
-    <Button
-        android:id="@+id/btnGuardarUbi"
-        android:layout_width="251dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/button_bg"
-        android:gravity="center"
-        android:text="Continuar"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="16sp" />
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        map:cardCornerRadius="25sp"
+        map:cardElevation="5dp"
+        map:cardMaxElevation="10dp"
+        map:cardBackgroundColor="@color/grey"
+        map:cardPreventCornerOverlap="true"
+        map:layout_constraintTop_toBottomOf="@id/map"
+        map:layout_constraintBottom_toBottomOf="parent">
 
-</LinearLayout>
+        <View
+            android:layout_width="60dp"
+            android:layout_height="10dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/card_indicator"
+            android:layout_marginTop="10dp"/>
+
+        <Button
+            android:id="@+id/btnGuardarUbi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="50dp"
+            android:background="@drawable/button_bg"
+            android:paddingHorizontal="50dp"
+            android:paddingVertical="10dp"
+            android:text="Continuar"
+            android:layout_gravity="center_horizontal"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="16sp"/>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

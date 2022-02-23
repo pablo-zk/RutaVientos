@@ -58,85 +58,64 @@ public class CreateRoutesActivity extends AppCompatActivity {
         txtDestino.setText(bundle.getString("destino"));
         txtDestino.setEnabled(false);
         txtOrigen.setEnabled(false);
-        btnChange.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String textoDestino = String.valueOf(txtDestino.getText());
-                txtDestino.setText(txtOrigen.getText());
-                txtOrigen.setText(textoDestino);
-            }
-        });
-        etPlannedDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                switch (view.getId()){
-                    case R.id.etPlannedDate:
-                        showDatePickerDialog();
-                        break;
-                }
-            }
-        });
-        etPlannedTime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                switch (view.getId()){
-                    case R.id.etPlannedTime:
-                        showTimePickerDialog();
-                        break;
-                }
-            }
-        });
-        create.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int plazasLibres = txtPlazas.getText().toString().equals("")? -1: Integer.parseInt(txtPlazas.getText().toString());
-                if(txtOrigen.getText().toString().equals("") || txtDestino.getText().toString().equals("") || fechaUtilizada.getYear() == 0 || txtPlazas.getText().toString().equals("")){
-                    Toast.makeText(CreateRoutesActivity.this,"Rellena todos los campos.",Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if(plazasLibres < 1 ){
-                    txtPlazas.setError("Valor incorrecto");
-                    return;
-                }
-                realm = Realm.getDefaultInstance();
-                realmUser = realm.where(User.class).equalTo("isActive",true).findAll();
 
-                Route route = new Route(txtOrigen.getText().toString(), txtDestino.getText().toString(), plazasLibres, fechaUtilizada,realmUser.get(0).getId());
-                realm.beginTransaction();
-                realm.copyToRealm(route);
-                realm.commitTransaction();
-                Intent intent = new Intent(CreateRoutesActivity.this, MainActivity.class);
-                startActivity(intent);
+        btnChange.setOnClickListener(view -> {
+            String textoDestino = String.valueOf(txtDestino.getText());
+            txtDestino.setText(txtOrigen.getText());
+            txtOrigen.setText(textoDestino);
+        });
+        etPlannedDate.setOnClickListener(view -> {
+            if (view.getId() == R.id.etPlannedDate) {
+                showDatePickerDialog();
             }
+        });
+        etPlannedTime.setOnClickListener(view -> {
+            if (view.getId() == R.id.etPlannedTime) {
+                showTimePickerDialog();
+            }
+        });
+        create.setOnClickListener(v -> {
+            int plazasLibres = txtPlazas.getText().toString().equals("")? -1: Integer.parseInt(txtPlazas.getText().toString());
+            if(txtOrigen.getText().toString().equals("") || txtDestino.getText().toString().equals("") || fechaUtilizada.getYear() == 0 || txtPlazas.getText().toString().equals("")){
+                Toast.makeText(CreateRoutesActivity.this,"Rellena todos los campos.",Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if(plazasLibres < 1 ){
+                txtPlazas.setError("Valor incorrecto");
+                return;
+            }
+            realm = Realm.getDefaultInstance();
+            realmUser = realm.where(User.class).equalTo("isActive",true).findAll();
+
+            Route route = new Route(txtOrigen.getText().toString(), txtDestino.getText().toString(), plazasLibres, fechaUtilizada,realmUser.get(0).getId());
+            realm.beginTransaction();
+            realm.copyToRealm(route);
+            realm.commitTransaction();
+            Intent intent = new Intent(CreateRoutesActivity.this, MainActivity.class);
+            startActivity(intent);
         });
 
     }
 
 
     private void showDatePickerDialog() {
-        DatePickerFragment newFragment = DatePickerFragment.newInstance(new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                // +1 because January is zero
-                final String selectedDate = day + " / " + (month+1) + " / " + year;
-                etPlannedDate.setText(selectedDate);
-                fechaUtilizada.setDate(day);
-                fechaUtilizada.setMonth(month+1);
-                fechaUtilizada.setYear(year);
-            }
+        DatePickerFragment newFragment = DatePickerFragment.newInstance((datePicker, year, month, day) -> {
+            // +1 because January is zero
+            final String selectedDate = day + " / " + (month+1) + " / " + year;
+            etPlannedDate.setText(selectedDate);
+            fechaUtilizada.setDate(day);
+            fechaUtilizada.setMonth(month+1);
+            fechaUtilizada.setYear(year);
         });
 
         newFragment.show(this.getSupportFragmentManager(), "datePicker");
     }
     private void showTimePickerDialog() {
-        TimePickerFragment newFragment = TimePickerFragment.newInstance(new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                final String selectedDate = hourOfDay + ":" + minute;
-                etPlannedTime.setText(selectedDate);
-                fechaUtilizada.setHours(hourOfDay);
-                fechaUtilizada.setMinutes(minute);
-            }
+        TimePickerFragment newFragment = TimePickerFragment.newInstance((view, hourOfDay, minute) -> {
+            final String selectedDate = hourOfDay + ":" + minute;
+            etPlannedTime.setText(selectedDate);
+            fechaUtilizada.setHours(hourOfDay);
+            fechaUtilizada.setMinutes(minute);
         });
 
         newFragment.show(this.getSupportFragmentManager(), "timePicker");

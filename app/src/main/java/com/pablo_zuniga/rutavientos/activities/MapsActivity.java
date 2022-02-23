@@ -24,6 +24,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
@@ -63,32 +64,29 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         addressText = "";
 
-        txtTitle = (TextView) findViewById(R.id.txtTitleMap);
+        /*txtTitle = (TextView) findViewById(R.id.txtTitleMap);*/
         Bundle bundle = getIntent().getExtras();
-        if(bundle.getString("destino").equals("")){
+        /*if(bundle.getString("destino").equals("")){
             txtTitle.setText("Elige el destino");
         }else{
             txtTitle.setText("Elige el origen");
-        }
+        }*/
 
         btnGuardar = (Button) findViewById(R.id.btnGuardarUbi);
-        btnGuardar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MapsActivity.this, CreateRoutesActivity.class);
-                if(addressText == ""){
-                    Toast.makeText(MapsActivity.this,"Clica sobre el mapa y elige una ubicación", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if(bundle.getString("destino").equals("")){
-                    intent.putExtra("destino",addressText);
-                    intent.putExtra("origen",bundle.getString("origen"));
-                }else{
-                    intent.putExtra("destino",bundle.getString("destino"));
-                    intent.putExtra("origen",addressText);
-                }
-                startActivity(intent);
+        btnGuardar.setOnClickListener(view -> {
+            Intent intent = new Intent(MapsActivity.this, CreateRoutesActivity.class);
+            if(addressText.equals("")){
+                Toast.makeText(MapsActivity.this,"Clica sobre el mapa y elige una ubicación", Toast.LENGTH_SHORT).show();
+                return;
             }
+            if(bundle.getString("destino").equals("")){
+                intent.putExtra("destino",addressText);
+                intent.putExtra("origen",bundle.getString("origen"));
+            }else{
+                intent.putExtra("destino",bundle.getString("destino"));
+                intent.putExtra("origen",addressText);
+            }
+            startActivity(intent);
         });
     }
 
@@ -113,42 +111,40 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.addMarker(new MarkerOptions().position(cuatrovientos).title("Cuatrovientos"));
         CameraPosition camera = new CameraPosition.Builder().target(cuatrovientos).zoom(18).tilt(15).build();
         mMap.moveCamera(CameraUpdateFactory.newCameraPosition(camera));
+        mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(MapsActivity.this, R.raw.style_json));
 
         //EVENTS
-        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-            @Override
-            public void onMapClick(@NonNull LatLng latLng) {
-                if(markerCreated){
-                    showAlert();
-                    return;
-                }
-                markerCreated = true;
+        mMap.setOnMapClickListener(latLng -> {
+            if(markerCreated){
+                showAlert();
+                return;
+            }
+            markerCreated = true;
 
-                List<Address> matches = null;
-                try {
-                    matches = geoCoder.getFromLocation(latLng.latitude, latLng.longitude, 1);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                if(matches == null){
-                    return;
-                }
-                Address address = matches.get(0);
-                addressText = String.format("%s", address.getAddressLine(0));
-                Toast.makeText(MapsActivity.this,addressText, Toast.LENGTH_SHORT).show();
+            List<Address> matches = null;
+            try {
+                matches = geoCoder.getFromLocation(latLng.latitude, latLng.longitude, 1);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if(matches == null){
+                return;
+            }
+            Address address = matches.get(0);
+            addressText = String.format("%s", address.getAddressLine(0));
+            Toast.makeText(MapsActivity.this,addressText, Toast.LENGTH_SHORT).show();
 
-                marker = new MarkerOptions();
-                marker.position(latLng);
-                marker.title(addressText.split(",")[0]);
-                marker.draggable(true);
-                mMap.addMarker(marker);
+            marker = new MarkerOptions();
+            marker.position(latLng);
+            marker.title(addressText.split(",")[0]);
+            marker.draggable(true);
+            mMap.addMarker(marker);
 
-                //Mostrar la linea
+            //Mostrar la linea
 //                Polyline line = mMap.addPolyline(new PolylineOptions()
 //                        .add(new LatLng(latLng.latitude,latLng.longitude), new LatLng(42.8242834, -1.659874))
 //                        .width(5)
 //                        .color(Color.RED));
-            }
         });
 
         mMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
