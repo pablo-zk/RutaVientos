@@ -70,6 +70,7 @@ public class RouteDetails extends AppCompatActivity {
             userCurrent = realm.where(User.class).equalTo("isActive",true).findFirst();
        }
         txtContacto = (TextView) findViewById(R.id.txtContact);
+        txtContacto.setText("Contacta con " + userOfRoute.getUsername().toString());
         btnApuntarse = (Button) findViewById(R.id.btnApuntarse);
         if (userCurrent.getId() == userOfRoute.getId()){
             btnApuntarse.setText("Eliminar");
@@ -78,7 +79,6 @@ public class RouteDetails extends AppCompatActivity {
             //TODO partir de aquí poner los datos en los txt o lo que haya en la view
             if(userCurrent.getRoutesId().contains(routeActual.getId())){
                 btnApuntarse.setText("Desapuntarse");
-                txtContacto.setText("Contacta con " + userOfRoute.getUsername().toString());
                 txtContacto.setEnabled(true);
             }else{
                 btnApuntarse.setText("Apuntarse");
