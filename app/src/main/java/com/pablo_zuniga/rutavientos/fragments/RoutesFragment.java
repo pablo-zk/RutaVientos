@@ -13,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pablo_zuniga.rutavientos.R;
@@ -34,6 +36,8 @@ public class RoutesFragment extends Fragment {
     RecyclerView recyclerRoutes;
     Realm realm;
     public RealmResults<Route> realmResults;
+    ImageView img;
+    TextView txtInicio;
 
     public RoutesFragment() {}
 
@@ -53,10 +57,20 @@ public class RoutesFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_routes, container, false);
 
+        img = (ImageView) view.findViewById(R.id.imgInicio);
+        txtInicio = (TextView) view.findViewById(R.id.txtInicio);
+
+
         this.recyclerRoutes = (RecyclerView) view.findViewById(R.id.recyclerRoutes);
+
 
         realm = Realm.getDefaultInstance();
         realmResults = realm.where(Route.class).notEqualTo("freeSeats", 0).findAll();
+
+        if (realmResults.size() == 0){
+            img.setVisibility(View.VISIBLE);
+            txtInicio.setVisibility(View.VISIBLE);
+        }
 
         this.recyclerRoutes.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false));
         RoutesAdapter routesAdapter = new RoutesAdapter(realmResults, (ruta, position) -> {
