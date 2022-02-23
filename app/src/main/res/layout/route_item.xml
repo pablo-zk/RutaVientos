@@ -4,78 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-<!--    <androidx.cardview.widget.CardView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="20dp"-->
-<!--        android:layout_marginEnd="20dp"-->
-<!--        app:cardCornerRadius="20dp"-->
-<!--        app:contentPadding="15dp"-->
-<!--        app:cardElevation="5dp"-->
-<!--        app:cardPreventCornerOverlap="true"-->
-<!--        app:cardUseCompatPadding="true"-->
-<!--        app:layout_constraintTop_toTopOf="parent">-->
-
-<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:paddingBottom="10dp">-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/cardTitle"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="5dp"-->
-<!--                android:text="Partida - Destino"-->
-<!--                android:textSize="20sp"-->
-<!--                android:textStyle="bold"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/cardHour"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="50dp"-->
-<!--                android:layout_marginStart="20dp"-->
-<!--                android:layout_marginTop="10dp"-->
-<!--                android:layout_marginBottom="20dp"-->
-<!--                android:gravity="center"-->
-<!--                android:text="18:30"-->
-<!--                android:textSize="40sp"-->
-<!--                android:textStyle="bold"-->
-<!--                app:layout_constraintEnd_toStartOf="@id/cardPlaces"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@id/cardTitle" />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/cardPlaces"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="50dp"-->
-<!--                android:layout_marginTop="10dp"-->
-<!--                android:layout_marginEnd="20dp"-->
-<!--                android:gravity="center"-->
-<!--                android:text="4 plazas"-->
-<!--                android:textSize="20sp"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintStart_toEndOf="@id/cardHour"-->
-<!--                app:layout_constraintTop_toBottomOf="@id/cardTitle" />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/cardDriver"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_margin="10dp"-->
-<!--                android:gravity="center"-->
-<!--                android:text="Publicado por Pablo"-->
-<!--                android:textSize="17sp"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@id/cardHour" />-->
-
-<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
-
-<!--    </androidx.cardview.widget.CardView>-->
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -84,6 +12,7 @@
         app:cardCornerRadius="20dp"
         app:contentPadding="15dp"
         app:cardElevation="5dp"
+        style="@style/Theme.RutaVientos"
         app:cardPreventCornerOverlap="true"
         app:cardUseCompatPadding="true"
         app:layout_constraintTop_toTopOf="parent">

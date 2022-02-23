@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".activities.CreateRoutesActivity">
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="250sp"
+        android:src="@drawable/route_car"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/txtOrigen"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
     <EditText
         android:id="@+id/txtOrigen"
         android:layout_width="0dp"
@@ -20,7 +29,7 @@
         android:paddingLeft="20dp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:text="Cuatrovinetos"
+        android:text="Cuatrovientos"
         app:layout_constraintBottom_toTopOf="@+id/btnChange"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -73,10 +82,10 @@
         android:layout_marginEnd="40dp"
         android:background="@drawable/edit_text"
         android:clickable="true"
-        android:focusable="false"
+        android:focusable="true"
         android:hint="TIME"
         android:inputType="date"
-        android:paddingLeft="20dp"
+        android:gravity="center"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -92,10 +101,10 @@
         android:layout_marginTop="44dp"
         android:background="@drawable/edit_text"
         android:clickable="true"
-        android:focusable="false"
+        android:focusable="true"
         android:hint="DATE"
         android:inputType="date"
-        android:paddingLeft="20dp"
+        android:gravity="center"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         app:layout_constraintEnd_toStartOf="@+id/etPlannedTime"
