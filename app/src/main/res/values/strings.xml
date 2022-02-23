@@ -11,4 +11,5 @@
     <string name="login_failed">"Login failed"</string>
     <string name="appTitle">RutaVientos</string>
     <string name="title_activity_maps">MapsActivity</string>
+    <string name="str_no_routes">No hay rutas actualmente, prueba a añadir una o espera a que alguien publique</string>
 </resources>
