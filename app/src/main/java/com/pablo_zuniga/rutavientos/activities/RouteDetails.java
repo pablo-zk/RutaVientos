@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -80,6 +82,7 @@ public class RouteDetails extends AppCompatActivity {
             if(userCurrent.getRoutesId().contains(routeActual.getId())){
                 btnApuntarse.setText("Desapuntarse");
                 txtContacto.setEnabled(true);
+                txtContacto.setTypeface(null, Typeface.BOLD);
             }else{
                 btnApuntarse.setText("Apuntarse");
                 txtContacto.setEnabled(false);

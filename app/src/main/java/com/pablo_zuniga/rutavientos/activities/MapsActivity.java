@@ -161,9 +161,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onMarkerDragEnd(Marker marker2) {
                 marker2.showInfoWindow();
-                Toast.makeText(MapsActivity.this,"Marker Dragged to \n"+
-                        "Lat: "+marker2.getPosition().latitude+"\n"+
-                        "Lng: "+marker2.getPosition().longitude, Toast.LENGTH_SHORT).show();
                 List<Address> matches = null;
                 try {
                     matches = geoCoder.getFromLocation(marker2.getPosition().latitude, marker2.getPosition().longitude, 1);
